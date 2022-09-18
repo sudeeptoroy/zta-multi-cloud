@@ -1,0 +1,58 @@
+{
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+        "creationTimestamp": "2022-09-17T13:47:10Z",
+        "deletionTimestamp": "2022-09-17T15:52:31Z",
+        "labels": {
+            "kubernetes.io/metadata.name": "spire"
+        },
+        "name": "spire",
+        "resourceVersion": "35005",
+        "uid": "b4f2c6af-c48a-4393-a33b-4d8d0902a0a5"
+    },
+    "spec": {
+        "finalizers": [
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastTransitionTime": "2022-09-17T15:52:36Z",
+                "message": "All resources successfully discovered",
+                "reason": "ResourcesDiscovered",
+                "status": "False",
+                "type": "NamespaceDeletionDiscoveryFailure"
+            },
+            {
+                "lastTransitionTime": "2022-09-17T15:52:36Z",
+                "message": "All legacy kube types successfully parsed",
+                "reason": "ParsedGroupVersions",
+                "status": "False",
+                "type": "NamespaceDeletionGroupVersionParsingFailure"
+            },
+            {
+                "lastTransitionTime": "2022-09-17T15:52:36Z",
+                "message": "All content successfully deleted, may be waiting on finalization",
+                "reason": "ContentDeleted",
+                "status": "False",
+                "type": "NamespaceDeletionContentFailure"
+            },
+            {
+                "lastTransitionTime": "2022-09-17T15:52:36Z",
+                "message": "Some resources are remaining: spiffeids.spiffeid.spiffe.io has 5 resource instances",
+                "reason": "SomeResourcesRemain",
+                "status": "True",
+                "type": "NamespaceContentRemaining"
+            },
+            {
+                "lastTransitionTime": "2022-09-17T15:52:36Z",
+                "message": "Some content in the namespace has finalizers remaining: finalizers.spiffeid.spiffe.io in 5 resource instances",
+                "reason": "SomeFinalizersRemain",
+                "status": "True",
+                "type": "NamespaceFinalizersRemaining"
+            }
+        ],
+        "phase": "Terminating"
+    }
+}

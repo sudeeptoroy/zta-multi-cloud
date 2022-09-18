@@ -1,0 +1,80 @@
+eksctl create cluster --name istio-c1 --nodes 2 --profile adfs
+
+export CLUSTER1=<kubectx output>
+
+first install spire
+
+kubectl apply -f $ISTIO_SRC/samples/security/spire/spire-quickstart.yaml
+
+clone istio src 
+git clone https://github.com/istio/istio.git
+git checkout 1.14.4
+
+download istioctl 1.14.4
+
+istioctl install --skip-confirmation -f ../istio/install.yaml
+
+ istioctl install --skip-confirmation -f istio/install.yaml
+
+
+
+#INGRESS_POD=$(kubectl get pod -l istio=ingressgateway -n istio-system -o jsonpath="{.items[0].metadata.name}")
+#INGRESS_POD_UID=$(kubectl get pods -n istio-system $INGRESS_POD -o jsonpath='{.metadata.uid}')
+#
+#SPIRE_SERVER_POD=$(kubectl get pod -l app=spire-server -n spire -o jsonpath="{.items[0].metadata.name}")
+#
+#kubectl exec -n spire $SPIRE_SERVER_POD -- \
+#/opt/spire/bin/spire-server entry create \
+#    -spiffeID spiffe://example.org/ns/spire/sa/spire-agent \
+#    -selector k8s_psat:cluster:demo-cluster \
+#    -selector k8s_psat:agent_ns:spire \
+#    -selector k8s_psat:agent_sa:spire-agent \
+#    -node -socketPath /run/spire/sockets/server.sock
+#
+#
+#kubectl exec -n spire $SPIRE_SERVER_POD -- \
+#/opt/spire/bin/spire-server entry create \
+#    -spiffeID spiffe://example.org/ns/istio-system/sa/istio-ingressgateway-service-account \
+#    -parentID spiffe://example.org/ns/spire/sa/spire-agent \
+#    -selector k8s:sa:istio-ingressgateway-service-account \
+#    -selector k8s:ns:istio-system \
+#    -selector k8s:pod-uid:$INGRESS_POD_UID \
+#    -dns $INGRESS_POD \
+#    -dns istio-ingressgateway.istio-system.svc \
+#    -socketPath /run/spire/sockets/server.sock
+
+istioctl kube-inject --filename $ISTIO_SRC/samples/security/spire/sleep-spire.yaml | kubectl apply -f -
+
+SLEEP_POD=$(kubectl get pod -l app=sleep -o jsonpath="{.items[0].metadata.name}")
+SLEEP_POD_UID=$(kubectl get pods $SLEEP_POD -o jsonpath='{.metadata.uid}')
+
+
+kubectl exec -i -t $SPIRE_SERVER_POD -n spire -c spire-server -- /bin/sh -c "bin/spire-server entry show -socketPath /run/spire/sockets/server.sock"
+
+
+istioctl proxy-config secret $SLEEP_POD -o json | jq -r \
+'.dynamicActiveSecrets[0].secret.tlsCertificate.certificateChain.inlineBytes' | base64 --decode > chain.pem
+
+export GOOGLE_SRC=`pwd`
+
+git clone https://github.com/GoogleCloudPlatform/microservices-demo.git
+
+
+k create ns gdemo-app
+kubectl label namespace gdemo-app istio-injection=enabled
+
+k -n gdemo-app apply -f $GOOGLE_SRC/release
+
+cat <<EOF | kubectl apply -f -
+apiVersion: "networking.istio.io/v1alpha3"
+kind: "DestinationRule"
+metadata:
+  name: "bad-rule"
+  namespace: "gdemo-app"
+spec:
+  host: "frontend.gdemo-app.svc.example.org"
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+EOF
+

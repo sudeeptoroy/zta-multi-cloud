@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"istio-eastwestgateway","install.operator.istio.io/owning-resource":"unknown","install.operator.istio.io/owning-resource-namespace":"istio-system","istio":"eastwestgateway","istio.io/rev":"default","operator.istio.io/component":"IngressGateways","operator.istio.io/managed":"Reconcile","operator.istio.io/version":"1.14.4","release":"istio","topology.istio.io/network":"google-network"},"name":"istio-eastwestgateway","namespace":"istio-system"},"spec":{"ports":[{"name":"status-port","port":15021,"protocol":"TCP","targetPort":15021},{"name":"tls","port":15443,"protocol":"TCP","targetPort":15443},{"name":"tls-istiod","port":15012,"protocol":"TCP","targetPort":15012},{"name":"tls-webhook","port":15017,"protocol":"TCP","targetPort":15017}],"selector":{"app":"istio-eastwestgateway","istio":"eastwestgateway","topology.istio.io/network":"google-network"},"type":"LoadBalancer"}}
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+  creationTimestamp: "2022-09-17T16:25:57Z"
+  finalizers:
+  - service.kubernetes.io/load-balancer-cleanup
+  labels:
+    app: istio-eastwestgateway
+    install.operator.istio.io/owning-resource: unknown
+    install.operator.istio.io/owning-resource-namespace: istio-system
+    istio: eastwestgateway
+    istio.io/rev: default
+    operator.istio.io/component: IngressGateways
+    operator.istio.io/managed: Reconcile
+    operator.istio.io/version: 1.14.4
+    release: istio
+    topology.istio.io/network: google-network
+  name: istio-eastwestgateway
+  namespace: istio-system
+  resourceVersion: "78497"
+  uid: 40329395-c06c-4aaa-ab32-115c21f8b3c0
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 172.20.55.27
+  clusterIPs:
+  - 172.20.55.27
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: status-port
+    nodePort: 32105
+    port: 15021
+    protocol: TCP
+    targetPort: 15021
+  - name: tls
+    nodePort: 31332
+    port: 15443
+    protocol: TCP
+    targetPort: 15443
+  - name: tls-istiod
+    nodePort: 32256
+    port: 15012
+    protocol: TCP
+    targetPort: 15012
+  - name: tls-webhook
+    nodePort: 30798
+    port: 15017
+    protocol: TCP
+    targetPort: 15017
+  selector:
+    app: istio-eastwestgateway
+    istio: eastwestgateway
+    topology.istio.io/network: google-network
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - hostname: a40329395c06c4aaaab32115c21f8b3c-2019518741.us-east-1.elb.amazonaws.com

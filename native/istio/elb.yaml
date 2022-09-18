@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"service.beta.kubernetes.io/aws-load-balancer-backend-protocol":"tcp","service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled":"true","service.beta.kubernetes.io/aws-load-balancer-healthcheck-port":"traffic-port","service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol":"tcp","service.beta.kubernetes.io/aws-load-balancer-proxy-protocol":"*","service.beta.kubernetes.io/aws-load-balancer-type":"nlb"},"labels":{"app":"istio-eastwestgateway","install.operator.istio.io/owning-resource":"eastwest","install.operator.istio.io/owning-resource-namespace":"istio-system","istio":"eastwestgateway","istio.io/rev":"default","operator.istio.io/component":"IngressGateways","operator.istio.io/managed":"Reconcile","operator.istio.io/version":"1.14.4","release":"istio","topology.istio.io/network":"network2"},"name":"istio-eastwestgateway","namespace":"istio-system"},"spec":{"ports":[{"name":"status-port","port":15021,"protocol":"TCP","targetPort":15021},{"name":"tls","port":15443,"protocol":"TCP","targetPort":15443},{"name":"tls-istiod","port":15012,"protocol":"TCP","targetPort":15012},{"name":"tls-webhook","port":15017,"protocol":"TCP","targetPort":15017}],"selector":{"app":"istio-eastwestgateway","istio":"eastwestgateway","topology.istio.io/network":"network2"},"type":"LoadBalancer"}}
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: traffic-port
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: tcp
+    service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: '*'
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+  creationTimestamp: "2022-09-18T07:20:39Z"
+  finalizers:
+  - service.kubernetes.io/load-balancer-cleanup
+  labels:
+    app: istio-eastwestgateway
+    install.operator.istio.io/owning-resource: eastwest
+    install.operator.istio.io/owning-resource-namespace: istio-system
+    istio: eastwestgateway
+    istio.io/rev: default
+    operator.istio.io/component: IngressGateways
+    operator.istio.io/managed: Reconcile
+    operator.istio.io/version: 1.14.4
+    release: istio
+    topology.istio.io/network: network2
+  name: istio-eastwestgateway
+  namespace: istio-system
+  resourceVersion: "31306"
+  uid: 6b117dbc-8122-4aa6-88b3-919ea5d0224a
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 172.20.141.30
+  clusterIPs:
+  - 172.20.141.30
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: status-port
+    nodePort: 32364
+    port: 15021
+    protocol: TCP
+    targetPort: 15021
+  - name: tls
+    nodePort: 31614
+    port: 15443
+    protocol: TCP
+    targetPort: 15443
+  - name: tls-istiod
+    nodePort: 31767
+    port: 15012
+    protocol: TCP
+    targetPort: 15012
+  - name: tls-webhook
+    nodePort: 30739
+    port: 15017
+    protocol: TCP
+    targetPort: 15017
+  selector:
+    app: istio-eastwestgateway
+    istio: eastwestgateway
+    topology.istio.io/network: network2
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - hostname: a6b117dbc81224aa688b3919ea5d0224-d4d29b99b2219eae.elb.us-east-1.amazonaws.com
