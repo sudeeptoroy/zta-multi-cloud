@@ -1,0 +1,43 @@
+It was a pleasure working with you over the Chime call earlier; In summary, Istio cluster nodes could not communicate with alternative cluster nodes through their respective cluster Network Load Balancer (NLB). Both Cluster's NLBs were internet facing, and their Target Group's Client IP preservation attributes [1] were set to Enabled.
+
+When Client IP preservation is enabled, the NLB Target will see the traffic coming from the Client Real IP address.
+When Client IP preservation is disabled, the Source IP is rewritten to the NLB internal IP addresses before the traffic is sent to the Target.
+
+Problematic Flow: Istio cluster 1 node --> Private IP is translated to a Public IP via the IGW  --> Internet facing NLB part of Istio cluster 2 listening on TCP 15443 --> Target Group "k8s-istiosys-istioeas-5dc61dbdb4" > Target instance listening on TCP 30752.
+
+The root cause of the communication issue was due to the Istio cluster EC2 instances' Security Groups only allowing TCP 30752 traffic from the NLB subnet internal CIDRs, and not the Client Public IPs. See Target Security Group configuration requirements in [2].
+
+Either of the following solutions would unblock connectivity:
+ 
+A.) Set Client IP preservation to Disabled for the Target Groups, such that the current Security Group rules allowing traffic for NLB health-checks, allows the Client traffic as well.
+* One downside is that you will not see the Client Real IP address connecting to the Istio gateway/applications. Proxy Protocol on NLB Target Group attributes is used to overcome this limitation [3] and here is a third party Istio blog on the same [4].
+* You will need to find a way to have Kubernetes configure the NLB Target Groups with Client IP preservation set to Disabled. Third party k8s docs might help [5].
+
+OR
+
+B.) Leave Client IP preservation Enabled, and Allow-list the Clients real IP addresses on the Target's Security Group.
+* You will need to find a way to have Kubernetes configure the Target Security Groups accordingly.
+
+Please let me know if you have any additional queries or concerns and I will be happy to help; alternatively feel free to close off the case inside the console when you are ready.
+Cheers for now.
+
+---- Reference links ----
+
+[1] Target groups for your Network Load Balancers - Client IP preservation - https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#client-ip-preservation 
+
+[2] Register targets with your target group - Target security groups - https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#target-security-groups 
+
+[3] Target groups for your Network Load Balancers - Proxy protocol - https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol 
+
+[4] https://istio.io/v1.12/blog/2020/show-source-ip/ 
+
+[5] https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/service/annotations/ 
+Ref: "service.beta.kubernetes.io/aws-load-balancer-target-group-attributes : preserve_client_ip.enabled=true"
+
+---------------------------
+
+We value your feedback. Please share your experience by rating this and other correspondences in the AWS Support Center. You can rate a correspondence by selecting the stars in the top right corner of the correspondence.
+
+Best regards,
+Alistair P.
+Amazon Web Services
