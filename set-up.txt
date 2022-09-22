@@ -56,8 +56,8 @@ kubectl --context="${CLUSTER2}" create secret generic cacerts -n istio-system   
 istioctl install -f istio/istio1.yaml --context "${CLUSTER1}"
 istioctl install -f istio/istio2.yaml --context "${CLUSTER2}"
 
-kubectl apply -f istio-ew-gw.yaml --context "${CLUSTER1}"
-kubectl apply -f istio-ew-gw.yaml --context "${CLUSTER2}"
+kubectl apply -f istio/istio-ew-gw.yaml --context "${CLUSTER1}"
+kubectl apply -f istio/istio-ew-gw.yaml --context "${CLUSTER2}"
 
 12. go to aws console, select the east west elb .. listeners ..then select the target group
 for 15443.. and then go to attribute ..edit to remove the clinet ip preserve ( Preserve client IP addresses)
