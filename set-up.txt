@@ -17,13 +17,11 @@
   CLUSTER1=<>@cluster1.us-east-1.eksctl.io
   CLUSTER2=<>@cluster2.us-east-1.eksctl.io
 
-7. kubectl config use-context $CLUSTER1
-
 ###
 istio
 ###
 
- 8. self signed certs are checked in so you can skip the below steps if you want
+8. self signed certs are checked in so you can skip the below steps if you want
 (optional)
 create a root ca
 create two sub ca from this root
@@ -46,23 +44,15 @@ kubectl --context="${CLUSTER1}" get namespace istio-system && \
 kubectl --context="${CLUSTER2}" get namespace istio-system && \
   kubectl --context="${CLUSTER2}" label namespace istio-system topology.istio.io/network=network2
 
-kubectl --context="${CLUSTER1}" create secret generic cacerts -n istio-system \
-      --from-file=../certs/cluster1/ca-cert.pem \
-      --from-file=../certs/cluster1/ca-key.pem \
-      --from-file=../certs/cluster1/root-cert.pem \
-      --from-file=../certs/cluster1/cert-chain.pem
+kubectl --context="${CLUSTER1}" create secret generic cacerts -n istio-system       --from-file=certs/cluster1/ca-cert.pem --from-file=certs/cluster1/ca-key.pem       --from-file=certs/cluster1/root-cert.pem --from-file=certs/cluster1/cert-chain.pem
 
-kubectl --context="${CLUSTER2}" create secret generic cacerts -n istio-system \
-      --from-file=../certs/cluster2/ca-cert.pem \
-      --from-file=../certs/cluster2/ca-key.pem \
-      --from-file=../certs/cluster2/root-cert.pem \
-      --from-file=../certs/cluster2/cert-chain.pem
+kubectl --context="${CLUSTER2}" create secret generic cacerts -n istio-system       --from-file=certs/cluster2/ca-cert.pem --from-file=certs/cluster2/ca-key.pem       --from-file=certs/cluster2/root-cert.pem --from-file=certs/cluster2/cert-chain.pem
 
 
  11. install istio now
 
-istioctl install -f istio1.yaml --context "${CLUSTER1}"
-istioctl install -f istio2.yaml --context "${CLUSTER2}"
+istioctl install -f istio/istio1.yaml --context "${CLUSTER1}"
+istioctl install -f istio/istio2.yaml --context "${CLUSTER2}"
 
 kubectl apply -f istio-ew-gw.yaml --context "${CLUSTER1}"
 kubectl apply -f istio-ew-gw.yaml --context "${CLUSTER2}"
