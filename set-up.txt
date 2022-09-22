@@ -1,28 +1,29 @@
 
-login to AWS
+1. login to AWS
 
-create a VPC( choose VPC and more), get the information of VPC and Subnets
+2. create a VPC( choose VPC and more), get the information of VPC and Subnets
 
-update the information in the cluster folder
+3. update the information in the cluster folder
 
 
-to create clusters run:
+4. To create clusters run:
   eksctl create cluster -f clusters/cluster1.yaml --profile adfs
   eksctl create cluster -f clusters/cluster2.yaml --profile adfs
 
 
-go to security groups and allow all communication between the two clusters
+5. in aws console go to security groups and allow all communication between the two clusters
 
-  CLUSTER1=<>@aws-cluster.us-east-1.eksctl.io
-  CLUSTER2=<>@google-cluster.us-east-1.eksctl.io
+6. set env variable
+  CLUSTER1=<>@cluster1.us-east-1.eksctl.io
+  CLUSTER2=<>@cluster2.us-east-1.eksctl.io
 
-kubectl config use-context $CLUSTER1
+7. kubectl config use-context $CLUSTER1
 
 ###
 istio
 ###
 
-self signed certs are checked in so you can skip the below steps if you want
+ 8. self signed certs are checked in so you can skip the below steps if you want
 (optional)
 create a root ca
 create two sub ca from this root
@@ -31,10 +32,10 @@ follow the line here:
 https://istio.io/latest/docs/tasks/security/cert-management/plugin-ca-cert/
 
 
-download the istioctl ( 1.14.4 )
+9. download the istioctl ( 1.14.4 )
 
 
-# installing the certs into istio-system before installing istio
+10. installing the certs into istio-system before installing istio
 
 k --context ${CLUSTER1} create ns istio-system
 k --context ${CLUSTER2} create ns istio-system
@@ -58,7 +59,7 @@ kubectl --context="${CLUSTER2}" create secret generic cacerts -n istio-system \
       --from-file=../certs/cluster2/cert-chain.pem
 
 
-install istio now
+ 11. install istio now
 
 istioctl install -f istio1.yaml --context "${CLUSTER1}"
 istioctl install -f istio2.yaml --context "${CLUSTER2}"
@@ -75,8 +76,7 @@ istioctl x create-remote-secret --context="${CLUSTER1}" --name=cluster1 | kubect
 istioctl x create-remote-secret --context="${CLUSTER2}" --name=cluster2 | kubectl apply -f - --context="${CLUSTER1}"
 
 
-##
-run the sample app 
+12. run the sample app  to verify
 
 
 kubectl create --context="${CLUSTER1}" namespace sample
@@ -117,7 +117,7 @@ kubectl get pod --context="${CLUSTER1}" -n sample -l app=sleep
 
 kubectl get pod --context="${CLUSTER2}" -n sample -l app=sleep
 
-#### testing now
+13. testing now
 
 kubectl exec --context="${CLUSTER1}" -n sample -c sleep \
     "$(kubectl get pod --context="${CLUSTER1}" -n sample -l \
@@ -132,7 +132,7 @@ kubectl exec --context="${CLUSTER2}" -n sample -c sleep \
 
 
 
-## delete clusters
+14. delete clusters
 
 
 eksctl delete cluster --name=cluster1 --profile adfs

@@ -30,9 +30,6 @@ spec:
       labels:
         app: helloworld
         version: v1
-      annotations:
-        inject.istio.io/templates: "sidecar,spire"
-        spiffe.io/federatesWith: "google.com"
     spec:
       containers:
       - name: helloworld
@@ -62,9 +59,6 @@ spec:
       labels:
         app: helloworld
         version: v2
-      annotations:
-        inject.istio.io/templates: "sidecar,spire"
-        spiffe.io/federatesWith: "aws.com"
     spec:
       containers:
       - name: helloworld

@@ -47,12 +47,9 @@ spec:
     metadata:
       labels:
         app: sleep
-      annotations:
-        inject.istio.io/templates: "sidecar,spire"
-        spiffe.io/federatesWith: "google.com"
     spec:
       terminationGracePeriodSeconds: 0
-      #      serviceAccountName: sleep
+      serviceAccountName: sleep
       containers:
       - name: sleep
         image: curlimages/curl
