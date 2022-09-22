@@ -2,6 +2,8 @@
 1. login to AWS
 
 2. create a VPC( choose VPC and more), get the information of VPC and Subnets
+in case you have public subnets do make sure to edit the subnets to allow auto
+ipv4 allocation
 
 3. update the information in the cluster folder
 
@@ -49,7 +51,7 @@ kubectl --context="${CLUSTER1}" create secret generic cacerts -n istio-system   
 kubectl --context="${CLUSTER2}" create secret generic cacerts -n istio-system       --from-file=certs/cluster2/ca-cert.pem --from-file=certs/cluster2/ca-key.pem       --from-file=certs/cluster2/root-cert.pem --from-file=certs/cluster2/cert-chain.pem
 
 
- 11. install istio now
+ 11. install istio now - dont forget to type y when prompted.
 
 istioctl install -f istio/istio1.yaml --context "${CLUSTER1}"
 istioctl install -f istio/istio2.yaml --context "${CLUSTER2}"
