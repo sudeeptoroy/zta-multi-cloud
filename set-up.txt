@@ -1,0 +1,139 @@
+
+login to AWS
+
+create a VPC( choose VPC and more), get the information of VPC and Subnets
+
+update the information in the cluster folder
+
+
+to create clusters run:
+  eksctl create cluster -f clusters/cluster1.yaml --profile adfs
+  eksctl create cluster -f clusters/cluster2.yaml --profile adfs
+
+
+go to security groups and allow all communication between the two clusters
+
+  CLUSTER1=<>@aws-cluster.us-east-1.eksctl.io
+  CLUSTER2=<>@google-cluster.us-east-1.eksctl.io
+
+kubectl config use-context $CLUSTER1
+
+###
+istio
+###
+
+self signed certs are checked in so you can skip the below steps if you want
+(optional)
+create a root ca
+create two sub ca from this root
+
+follow the line here:
+https://istio.io/latest/docs/tasks/security/cert-management/plugin-ca-cert/
+
+
+download the istioctl ( 1.14.4 )
+
+
+# installing the certs into istio-system before installing istio
+
+k --context ${CLUSTER1} create ns istio-system
+k --context ${CLUSTER2} create ns istio-system
+
+kubectl --context="${CLUSTER1}" get namespace istio-system && \
+  kubectl --context="${CLUSTER1}" label namespace istio-system topology.istio.io/network=network1
+
+kubectl --context="${CLUSTER2}" get namespace istio-system && \
+  kubectl --context="${CLUSTER2}" label namespace istio-system topology.istio.io/network=network2
+
+kubectl --context="${CLUSTER1}" create secret generic cacerts -n istio-system \
+      --from-file=../certs/cluster1/ca-cert.pem \
+      --from-file=../certs/cluster1/ca-key.pem \
+      --from-file=../certs/cluster1/root-cert.pem \
+      --from-file=../certs/cluster1/cert-chain.pem
+
+kubectl --context="${CLUSTER2}" create secret generic cacerts -n istio-system \
+      --from-file=../certs/cluster2/ca-cert.pem \
+      --from-file=../certs/cluster2/ca-key.pem \
+      --from-file=../certs/cluster2/root-cert.pem \
+      --from-file=../certs/cluster2/cert-chain.pem
+
+
+install istio now
+
+istioctl install -f istio1.yaml --context "${CLUSTER1}"
+istioctl install -f istio2.yaml --context "${CLUSTER2}"
+
+kubectl apply -f istio-ew-gw.yaml --context "${CLUSTER1}"
+kubectl apply -f istio-ew-gw.yaml --context "${CLUSTER2}"
+
+istioctl x create-remote-secret   --context="${CLUSTER1}"   --name=cluster1 --server=https://c1-control-plane:6443 | kubectl apply -f - --context="${CTX_CLUSTER2}"
+
+istioctl x create-remote-secret   --context="${CLUSTER2}"   --name=cluster2 --server=https://c2-control-plane:6443 | kubectl apply -f - --context="${CTX_CLUSTER1}"
+
+istioctl x create-remote-secret --context="${CLUSTER1}" --name=cluster1 | kubectl apply -f - --context="${CLUSTER2}"
+
+istioctl x create-remote-secret --context="${CLUSTER2}" --name=cluster2 | kubectl apply -f - --context="${CLUSTER1}"
+
+
+##
+run the sample app 
+
+
+kubectl create --context="${CLUSTER1}" namespace sample
+kubectl create --context="${CLUSTER2}" namespace sample
+
+kubectl label --context="${CLUSTER1}" namespace sample \
+    istio-injection=enabled
+kubectl label --context="${CLUSTER2}" namespace sample \
+    istio-injection=enabled
+
+kubectl apply --context="${CLUSTER1}" \
+    -f helloworld/helloworld.yaml \
+    -l service=helloworld -n sample
+kubectl apply --context="${CLUSTER2}" \
+    -f helloworld/helloworld.yaml \
+    -l service=helloworld -n sample
+
+kubectl apply --context="${CLUSTER1}" \
+    -f helloworld/helloworld.yaml \
+    -l version=v1 -n sample
+
+kubectl get pod --context="${CLUSTER1}" -n sample -l app=helloworld -w
+
+kubectl apply --context="${CLUSTER2}" \
+    -f helloworld/helloworld.yaml \
+    -l version=v2 -n sample
+
+kubectl get pod --context="${CLUSTER2}" -n sample -l app=helloworld -w
+
+
+kubectl apply --context="${CLUSTER1}" \
+    -f helloworld/sleep.yaml -n sample
+kubectl apply --context="${CLUSTER2}" \
+    -f helloworld/sleep.yaml -n sample
+
+
+kubectl get pod --context="${CLUSTER1}" -n sample -l app=sleep
+
+kubectl get pod --context="${CLUSTER2}" -n sample -l app=sleep
+
+#### testing now
+
+kubectl exec --context="${CLUSTER1}" -n sample -c sleep \
+    "$(kubectl get pod --context="${CLUSTER1}" -n sample -l \
+    app=sleep -o jsonpath='{.items[0].metadata.name}')" \
+    -- curl -sS helloworld.sample:5000/hello
+
+kubectl exec --context="${CLUSTER2}" -n sample -c sleep \
+    "$(kubectl get pod --context="${CLUSTER2}" -n sample -l \
+    app=sleep -o jsonpath='{.items[0].metadata.name}')" \
+    -- curl -sS helloworld.sample:5000/hello
+
+
+
+
+## delete clusters
+
+
+eksctl delete cluster --name=cluster1 --profile adfs
+eksctl delete cluster --name=cluster2 --profile adfs

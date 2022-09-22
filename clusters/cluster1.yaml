@@ -1,0 +1,41 @@
+--- 
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: cluster1
+  region: us-east-1
+vpc:
+  id: vpc-098ba9e6b243f0658
+  subnets:
+    private:
+      us-east-1a:
+        id: subnet-041b1a01973816a46
+      us-east-1b:
+        id: subnet-0f674af0dbb776898
+    public:
+      us-east-1a:
+        id: subnet-08455958c57bb7be1
+      us-east-1b:
+        id: subnet-0e3be51304c3da1ee
+managedNodeGroups:
+- name: general
+  #  privateNetworking: true
+  instanceType: m5.large
+  desiredCapacity: 2
+
+        #managedNodeGroups:
+        #- name: aws-cluster-ng
+        #  privateNetworking: true
+        #  instanceType: m5.large
+        #  desiredCapacity: 1
+        #- name: spot
+        #  privateNetworking: true
+        #  instanceType: t3.medium
+        #  spot: true
+        #  desiredCapacity: 2
+        #  labels:
+        #    role: spot
+        #  taints:
+        #  - key: spot
+        #    value: "true"
+        #    effect: NoSchedule
