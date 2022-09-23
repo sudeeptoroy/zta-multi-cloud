@@ -1,0 +1,449 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: styra-system
+  labels:
+    openpolicyagent.org/webhook: ignore
+
+---
+
+kind: Secret
+apiVersion: v1
+metadata:
+  name: opa-server
+  namespace: styra-system
+type: kubernetes.io/tls
+data:
+  tls.cacrt: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURMVENDQWhXZ0F3SUJBZ0lSQUxrQVNLcjhUZjdER0plZExUN0cyNEV3RFFZSktvWklodmNOQVFFTEJRQXcKRGpFTU1Bb0dBMVVFQ2hNRGIzQmhNQ0FYRFRJeU1Ea3lNekV4TXpneE5sb1lEekl3TlRBd01qQTRNVEV6T0RFMgpXakFPTVF3d0NnWURWUVFLRXdOdmNHRXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCCkFRQzZXbmwrUjdqSjIwcGdxZ0JNRDZsWHF0TnNURjZSejdESnF1alkzQXR5MFcxQnIydnFES0g1SFFzd0ZPdWUKcVJVa3RWM1I4ZVhXYkZHV1hqYjNHbDlpaGhpTkJtYWUwc3Q0OU9Tc0ROdW96dlJyZVNPL3JHa1FLK3A1Qk82cQpaM3RWZFpnTTBmUkJMZUxSdUJUblE1ZWtQMit0WXYzWE9IaG9Uc0lWWFBVbm4zYUFtT3NnYXAyU21ER3JxOFRWClNwaDJwMTlWZVJiRGd4WktwMTlZeTRmTG96R3NTbCtDc2hYV05hTjZhUGhERUxYNVFLSFQ0VHhxY0dCaUJIOUwKdGg2UzJGaHY2dVVtSHFvSVFPVlRuVHNSdzhraHlLNE5qWExrN2RxZDNxZDBnd1dqYmdJcHZzNGM0M2V1Q3dsVwp4L1RTMzc3NHFnZHQvZHppYTFVNHdxU3pBZ01CQUFHamdZTXdnWUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQjBHCkExVWRKUVFXTUJRR0NDc0dBUVVGQndNQ0JnZ3JCZ0VGQlFjREFUQVBCZ05WSFJNQkFmOEVCVEFEQVFIL01CMEcKQTFVZERnUVdCQlNzbklqT1BjbVhSNFpPZmpiY0VMTStIZHF3c3pBZkJnTlZIUkVFR0RBV2doUnZjR0V1YzNSNQpjbUV0YzNsemRHVnRMbk4yWXpBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQWxvcytFMVE3RkFoclFBc0ZIVy93CktzRjNyRndqdmcrL2MzcVo1Vk93dUQ1K2x1Y2xTY3pVTXkyVFNiSHpLQi9YZytLTnFXQ20rQkFnNHNSSkxRQ2gKc2ljQU5GT3lYVEF0Yzl2K2w2Z1U4MU1GOUhXZnFGa1haOTQ0czdmK1VjSE9RVXQ4T0JpVHZpTG5DblR6a1FuSwpzeFJLd3U0WkRCcnFON0ZLZFNYZkxIbE9HdDRKL0RMalRWQmJBaGFNLzFKVWhNOGpTUTZmVWI1VEkrYkVoMkdxCmMxWUcrVk0yS2hJeEZzQnpOcXM3WmFHK2lxNGdrQXZ4WVdHa3dzajZQMkw4TzlBeGdZa3cyZ3VwS1lhLzMveWkKSUthOE54Y214RWo3Yzlyak5IeHJTa3NpT1JQTFBTUlVYTUV6WGVUa1VxY0k3VkRyejJ4NDNEZkZkQ0c5eFNoYQo3dz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
+  tls.crt: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURMVENDQWhXZ0F3SUJBZ0lSQUxrQVNLcjhUZjdER0plZExUN0cyNEV3RFFZSktvWklodmNOQVFFTEJRQXcKRGpFTU1Bb0dBMVVFQ2hNRGIzQmhNQ0FYRFRJeU1Ea3lNekV4TXpneE5sb1lEekl3TlRBd01qQTRNVEV6T0RFMgpXakFPTVF3d0NnWURWUVFLRXdOdmNHRXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCCkFRQzZXbmwrUjdqSjIwcGdxZ0JNRDZsWHF0TnNURjZSejdESnF1alkzQXR5MFcxQnIydnFES0g1SFFzd0ZPdWUKcVJVa3RWM1I4ZVhXYkZHV1hqYjNHbDlpaGhpTkJtYWUwc3Q0OU9Tc0ROdW96dlJyZVNPL3JHa1FLK3A1Qk82cQpaM3RWZFpnTTBmUkJMZUxSdUJUblE1ZWtQMit0WXYzWE9IaG9Uc0lWWFBVbm4zYUFtT3NnYXAyU21ER3JxOFRWClNwaDJwMTlWZVJiRGd4WktwMTlZeTRmTG96R3NTbCtDc2hYV05hTjZhUGhERUxYNVFLSFQ0VHhxY0dCaUJIOUwKdGg2UzJGaHY2dVVtSHFvSVFPVlRuVHNSdzhraHlLNE5qWExrN2RxZDNxZDBnd1dqYmdJcHZzNGM0M2V1Q3dsVwp4L1RTMzc3NHFnZHQvZHppYTFVNHdxU3pBZ01CQUFHamdZTXdnWUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQjBHCkExVWRKUVFXTUJRR0NDc0dBUVVGQndNQ0JnZ3JCZ0VGQlFjREFUQVBCZ05WSFJNQkFmOEVCVEFEQVFIL01CMEcKQTFVZERnUVdCQlNzbklqT1BjbVhSNFpPZmpiY0VMTStIZHF3c3pBZkJnTlZIUkVFR0RBV2doUnZjR0V1YzNSNQpjbUV0YzNsemRHVnRMbk4yWXpBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQWxvcytFMVE3RkFoclFBc0ZIVy93CktzRjNyRndqdmcrL2MzcVo1Vk93dUQ1K2x1Y2xTY3pVTXkyVFNiSHpLQi9YZytLTnFXQ20rQkFnNHNSSkxRQ2gKc2ljQU5GT3lYVEF0Yzl2K2w2Z1U4MU1GOUhXZnFGa1haOTQ0czdmK1VjSE9RVXQ4T0JpVHZpTG5DblR6a1FuSwpzeFJLd3U0WkRCcnFON0ZLZFNYZkxIbE9HdDRKL0RMalRWQmJBaGFNLzFKVWhNOGpTUTZmVWI1VEkrYkVoMkdxCmMxWUcrVk0yS2hJeEZzQnpOcXM3WmFHK2lxNGdrQXZ4WVdHa3dzajZQMkw4TzlBeGdZa3cyZ3VwS1lhLzMveWkKSUthOE54Y214RWo3Yzlyak5IeHJTa3NpT1JQTFBTUlVYTUV6WGVUa1VxY0k3VkRyejJ4NDNEZkZkQ0c5eFNoYQo3dz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
+  tls.key: "LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBdWxwNWZrZTR5ZHRLWUtvQVRBK3BWNnJUYkV4ZWtjK3d5YXJvMk53TGN0RnRRYTlyCjZneWgrUjBMTUJUcm5xa1ZKTFZkMGZIbDFteFJsbDQyOXhwZllvWVlqUVptbnRMTGVQVGtyQXpicU03MGEza2oKdjZ4cEVDdnFlUVR1cW1kN1ZYV1lETkgwUVMzaTBiZ1U1ME9YcEQ5dnJXTDkxemg0YUU3Q0ZWejFKNTkyZ0pqcgpJR3Fka3BneHE2dkUxVXFZZHFkZlZYa1d3NE1XU3FkZldNdUh5Nk14ckVwZmdySVYxaldqZW1qNFF4QzErVUNoCjArRThhbkJnWWdSL1M3WWVrdGhZYitybEpoNnFDRURsVTUwN0VjUEpJY2l1RFkxeTVPM2FuZDZuZElNRm8yNEMKS2I3T0hPTjNyZ3NKVnNmMDB0KysrS29IYmYzYzRtdFZPTUtrc3dJREFRQUJBb0lCQUJiVWtML2N6NUhEVU9obwp5MktHSkt2OTNLc083Q01XKzhTcE1KK296YXBDYUEwOURZNTkvN1lDVGVXVkdveTBrRWVRQks5ODREaVZ5cVVPClk5T0FJcUZ5WmoyWXhDZS9FWGgvSUNqSDVuMVc1WERwUld6dEZXNEt3MDRTUVo4VTBISlcxc3J6U2VaV1ZjeDEKcmZIclFQKzVXZGczSVh3bGlmTFZlMGVjdk5nZXBtVlNlZTdvWDFRTTg3Y1Erc0RrUzdRVzZlOC9FTGtMeGcxVAp0OFRBWXFlRWh5a0VxQVphTGg1TjVFNk9UbUpTVWZpN0VmdlpTaXZrWUoxYVdnSkFsOUJOd0QwalNwQW8xZisvCnlnaU1lUGpvVUxoSjN1OFkxN242SXZVdVI1ZXlTeUxraXJ4NjRCMDF0S3YxUGY2MUR2V0xXbEJBY2tIRjhsdDMKQ3JScUwwRUNnWUVBOEdZR20wdXdiUW5mUXJlcTFia0VIRHkwT2RCbGxRanRVbnRMVjMrZ2xBUFdMYmNVY01pSApDZWpnOGxyTlVhc2F3T3lMNW1qS1UrT2ZyeFVJU0NSZkY0SjZ3Zm1RbUE2dkZJeXdHU1RsMEVNUlF3TUlhUDNpCmdleWRjWUtuU3pYYmlkVE11aWRyMnk4RCtURVJsYnJIVnVzMjRVeGJxcEY3YUE5V20xaXNmVk1DZ1lFQXhuS0wKY3RQcm9vSGo0Nkl5cmZGYmVtV01TV0o3U3FFSG52cno3TXVjcThuZUZYb1VNb3VMN2FjL29QR2NjeVRlRVFLNQpqa1hHcDVKLzBVb1Z0aUZMYTJoUkVsNWtBT2ZCaFpYb3JaQUxJUXZ3S3hwTTMzcDgxNUJYNTg0TVl5b1hxSWo1CkNmNUJWRzNVdUk5NFdtUHlxWDNiY0dyellWbWVHSkhkVm1HaTd5RUNnWUVBaE5vOWFIRkp6TmlaMDRzaEUvK3QKYjlWMFhFYjQvSVgwY1pMRnJsTlA4THkyRG9tUStFczVwWlpYU2xnNEE1d2xxdHlPN0FTWlhBYjlab3FmQ3c5ZQpwZVZyNWVyL3A2amx4TnVETGtJZjV4cEpYZGs5T3Bpa0p0MFduWFp3OGJXUDMvb0VNaFE3SE9ROHMrZ1VLY1VSCkNNM3doRTNva3JqWGxFaDF1bUFrNHhVQ2dZQkNkOVZMVmI0RUJWdU9RQ0tYYmxNRWtRVEhBNnhtRjcrVXVWdUEKUWNhdEo0VXlUbHg3ZlpBVnZzSXFKeU1PMGhkclBTMW5nT21EOFNiTXMvTEh1U2tveFp6NStSR24xL2hTeFI1VgpHLzBPU1pCYzc0YzJCekhQaGZKYm13RTlLYmtZNHgvKy8rRmo1Ukd0NjZnVkpvcjl5RUQ2eTJmUGdKUGFpT2pJCjZSVUk0UUtCZ0hUQ2NGM0VVbU43aXRuSXNBOFhEbFdSZE1XRGdKdzd5NmNnNnVsYnZqczBnNnBNVVB6WmVGb1YKSlFSRm5keUNidm5zakJqdHlFcUJ2Qm8yc1gzVlB5UkJxWjgycW15bjZKcW1Rc2ptL0pJVWlZY2FjdkdsZjFKSwpkN0QzbFNzaWxEUndISmZmK3NqNWEwMW1NRDRhWUlsZytMdE0rcncrOGtKN2pzbzEwUzkzCi0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg=="
+
+---
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: opa-config
+  namespace: styra-system
+data:
+  opa.yaml: |
+    services:
+      - name: styra
+        url: http://localhost:8080/v1
+      - name: styra-bundles
+        url: http://localhost:8080/v1/bundles
+    labels:
+      system-id: "ed8ff9a682334b6c85f36bd0d494e184"
+      system-type: "kubernetes:v2"
+    discovery:
+      name: discovery
+      service: styra
+  slp.yaml: |
+    services:
+      - name: styra
+        url: https://team1-jpmc.styra.com/v1
+        credentials:
+          bearer:
+            token_path: /config/das_slp_token
+      - credentials:
+          bearer:
+            token_path: /config/das_slp_token
+        name: 'styra-bundles'
+        url: 'https://team1-jpmc.styra.com/v1/bundles'
+    labels:
+      system-id: "ed8ff9a682334b6c85f36bd0d494e184"
+      system-type: "kubernetes:v2"
+    discovery:
+      name: discovery
+      resource: /systems/ed8ff9a682334b6c85f36bd0d494e184/discovery
+      service: 'styra'
+
+---
+
+kind: Secret
+apiVersion: v1
+metadata:
+  name: das-slp-token
+  namespace: styra-system
+data:
+  das_slp_token: "WkRZYlNBZVgyNkw3LVFQV3h2MlZzczhqYmV6bGo3cVhtbnNNOUJEZ1JQSW5OSE02dUxydHJEaklmTzM2R3p2NTJJUlgwVElrVG1CRElNME5lSWhaMzBEOGtB"
+
+---
+
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: opa-viewer
+roleRef:
+  kind: ClusterRole
+  name: view
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: Group
+  name: "system:serviceaccounts:styra-system"
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: opa
+  namespace: styra-system
+spec:
+  selector:
+    app: opa
+  ports:
+  - name: https
+    protocol: TCP
+    port: 443
+    targetPort: 4443
+
+---
+
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: opa
+  namespace: styra-system
+  name: opa
+spec:
+  replicas: 3
+  serviceName: "opa"
+  selector:
+    matchLabels:
+      app: opa
+  template:
+    metadata:
+      annotations:
+        checksum/config: 95960d927e07a693c5814acb1bebaa3b61c27e20cf0c4b92caeb9103291bf2e5
+      labels:
+        app: opa
+      name: opa
+    spec:
+      # Uncomment the tolerations and affinity fields below to run OPAs only
+      # on the kubernetes cluster master nodes.
+      # tolerations:
+      #   - effect: NoSchedule
+      #     key: node-role.kubernetes.io/master
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - opa
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         # for GKE and Azure, replace "master" with "agent" on the next line
+      #         - key: node-role.kubernetes.io/master
+      #           operator: Exists
+      initContainers:
+      - name: initpolicy
+        image: "styra/styra-local-plane:0.4.4"
+        imagePullPolicy: IfNotPresent
+        resources: {}
+        command:
+        - /bin/sh
+        - -c
+        - |
+          tr -dc 'A-F0-9' < /dev/urandom | dd bs=1 count=32 2>/dev/null > /authz/slp-token
+          TOKEN=$(cat /authz/slp-token)
+          cat > /authz/authz.rego <<EOF
+          package system.authz
+          # Deny access by default.
+          default allow = false
+          # Allow anonymous access to the default policy decision.
+          allow { input.path = ["v0", "data", "main", "main"]; input.method = "POST" }
+          allow { input.path = ["v0", "data", "policy", "com.styra.kubernetes.mutating", "main", "main"]; input.method = "POST" }
+          allow { input.path = ["v0", "data", "policy", "com.styra.kubernetes.validating", "main", "main"]; input.method = "POST" }
+          allow { input.path = ["v0", "data", "main", "main"]; input.method = "POST" }
+          # This is only used for health check in liveness and readiness probe
+          allow { input.path = ["health"]; input.method = "GET" }
+          # This is only used for prometheus metrics
+          allow { input.path = ["metrics"]; input.method = "GET" }
+          allow { input.identity == "$TOKEN" }
+          EOF
+        volumeMounts:
+          - name: authz
+            mountPath: /authz
+      containers:
+      - name: opa
+        image: "openpolicyagent/opa:0.44.0-rootless"
+        resources:
+          requests:
+          limits:
+        args:
+          - "run"
+          - "--server"
+          - "--tls-cert-file=/certs/tls.crt"
+          - "--tls-private-key-file=/certs/tls.key"
+          - "--addr=0.0.0.0:4443"
+          - "--addr=http://127.0.0.1:8181"
+          - "--config-file=/config/opa.yaml"
+          # authz enabled
+          - "--authentication=token"
+          - "--authorization=basic"
+          - "/authz/authz.rego"
+          - "--ignore=.*"
+        livenessProbe:
+          httpGet:
+            path: /health
+            scheme: HTTPS
+            port: 4443
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /health?bundle=true
+            scheme: HTTPS
+            port: 4443
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        volumeMounts:
+            - readOnly: true
+              mountPath: /config/opa.yaml
+              subPath: opa.yaml
+              name: opa-config-vol
+            - readOnly: true
+              mountPath: /certs
+              name: opa-server
+            - readOnly: true
+              mountPath: /authz
+              name: authz
+      - name: styra-local-plane
+        resources: {}
+        image: "styra/styra-local-plane:0.4.4"
+        volumeMounts:
+         - name: authz
+           readOnly: true
+           mountPath: /authz
+         - readOnly: true
+           mountPath: /config/slp.yaml
+           subPath: slp.yaml
+           name: opa-config-vol
+         - readOnly: true
+           mountPath: /config/das_slp_token
+           subPath: das_slp_token
+           name: das-token
+         - mountPath: /scratch
+           name: slp-scratch-vol
+        args:
+          - "--config-file=/config/slp.yaml"
+          - "--opa-auth-token-file=/authz/slp-token"
+        env:
+        livenessProbe:
+          httpGet:
+            path: /v1/system/alive
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /v1/system/ready
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+      volumes:
+      - name: opa-config-vol
+        configMap:
+          name: opa-config
+      - name: opa-server
+        secret:
+          secretName: opa-server
+      - name: authz
+        emptyDir: {}
+      - name: slp-scratch-vol
+        emptyDir: {}
+      - name: das-token
+        secret:
+          secretName: das-slp-token
+          defaultMode: 0400
+  # volumeClaimTemplates:
+  # - metadata:
+  #     name: slp-scratch-vol
+  #     labels:
+  #       slp-pvc: slp-kubernetes-app-pvc
+  #   spec:
+  #     accessModes: [ "ReadWriteOnce" ]
+  #     resources:
+  #       requests:
+  #         storage: 2Gi
+
+---
+
+kind: Secret
+apiVersion: v1
+metadata:
+  name: styra-access
+  namespace: styra-system
+type: Opaque
+data:
+  token: "YldOUzQtVEljeml0N2lwNS1EZ3pKdXhFakoyTm9GNllKNzJ0S3NadVplbk1HZVQyLU1Zd3U0NGZ2VWZGOHUzLXp4SkdLRUMtclczN3NjYnh6U1N2UEFMNWcwUjZ4UTAwaUZzc1djZkNMYWxj"
+
+---
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: datasources-agent-config
+  namespace: styra-system
+data:
+  conf.yaml: |-
+    datasources:
+      systems/ed8ff9a682334b6c85f36bd0d494e184/kubernetes/resources:
+
+---
+
+# datasources-agent needs read access to all resources, including the ability to list all resource types
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: read-all-global
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["get", "watch", "list"]
+- nonResourceURLs: ['*']
+  verbs: ["get", "watch", "list"]
+
+---
+
+# Grant datasources-agent the above cluster role
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: datasources-agent-read-all
+subjects:
+- kind: Group
+  name: "system:serviceaccounts:styra-system"
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: read-all-global
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: datasources-agent
+  namespace: styra-system
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: datasources-agent
+  template:
+    metadata:
+     annotations:
+       checksum/config: c68399426d0a9cec5ebedf9b18ec0111202d83770eca151cb98dd677711cee95
+     labels:
+       app: datasources-agent
+    spec:
+      containers:
+      - name: datasources-agent
+        image: "styra/datasources-agent:1.3.7"
+        livenessProbe:
+          httpGet:
+            path: /v1/system/alive
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /v1/system/ready
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        volumeMounts:
+        - name: datasources-agent-config
+          mountPath: /config
+        env:
+          - name: STYRA_CUSTOMER_ID
+            value: team1-jpmc
+          - name: STYRA_SERVICE_URL
+            value: https://team1-jpmc.styra.com
+          - name: STYRA_STATUS_URL
+            value: https://team1-jpmc.styra.com
+          - name: STYRA_BUNDLE_URL
+            value: https://team1-jpmc.styra.com
+          - name: STYRA_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: styra-access
+                key: token
+          - name: STYRA_CONFIG_FILE
+            value: /config/conf.yaml
+      volumes:
+      - name: datasources-agent-config
+        configMap:
+          name: datasources-agent-config
+
+---
+
+kind: ValidatingWebhookConfiguration
+apiVersion: admissionregistration.k8s.io/v1
+metadata:
+  name: opa-validating-webhook
+webhooks:
+  - name: validating-webhook.openpolicyagent.org
+    namespaceSelector:
+      matchExpressions:
+      - {key: openpolicyagent.org/webhook, operator: NotIn, values: [ ignore ]}
+    rules:
+      - operations: ["CREATE", "UPDATE"]
+        apiGroups: ["*"]
+        apiVersions: ["*"]
+        resources: ["*"]
+      - operations: ["CONNECT", "CREATE", "UPDATE"]
+        apiGroups: ["*"]
+        apiVersions: ["*"]
+        resources: ["pods/*", "certificatesigningrequest/*"]
+    sideEffects: None
+    failurePolicy: Ignore
+    clientConfig:
+      caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURMVENDQWhXZ0F3SUJBZ0lSQUxrQVNLcjhUZjdER0plZExUN0cyNEV3RFFZSktvWklodmNOQVFFTEJRQXcKRGpFTU1Bb0dBMVVFQ2hNRGIzQmhNQ0FYRFRJeU1Ea3lNekV4TXpneE5sb1lEekl3TlRBd01qQTRNVEV6T0RFMgpXakFPTVF3d0NnWURWUVFLRXdOdmNHRXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCCkFRQzZXbmwrUjdqSjIwcGdxZ0JNRDZsWHF0TnNURjZSejdESnF1alkzQXR5MFcxQnIydnFES0g1SFFzd0ZPdWUKcVJVa3RWM1I4ZVhXYkZHV1hqYjNHbDlpaGhpTkJtYWUwc3Q0OU9Tc0ROdW96dlJyZVNPL3JHa1FLK3A1Qk82cQpaM3RWZFpnTTBmUkJMZUxSdUJUblE1ZWtQMit0WXYzWE9IaG9Uc0lWWFBVbm4zYUFtT3NnYXAyU21ER3JxOFRWClNwaDJwMTlWZVJiRGd4WktwMTlZeTRmTG96R3NTbCtDc2hYV05hTjZhUGhERUxYNVFLSFQ0VHhxY0dCaUJIOUwKdGg2UzJGaHY2dVVtSHFvSVFPVlRuVHNSdzhraHlLNE5qWExrN2RxZDNxZDBnd1dqYmdJcHZzNGM0M2V1Q3dsVwp4L1RTMzc3NHFnZHQvZHppYTFVNHdxU3pBZ01CQUFHamdZTXdnWUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQjBHCkExVWRKUVFXTUJRR0NDc0dBUVVGQndNQ0JnZ3JCZ0VGQlFjREFUQVBCZ05WSFJNQkFmOEVCVEFEQVFIL01CMEcKQTFVZERnUVdCQlNzbklqT1BjbVhSNFpPZmpiY0VMTStIZHF3c3pBZkJnTlZIUkVFR0RBV2doUnZjR0V1YzNSNQpjbUV0YzNsemRHVnRMbk4yWXpBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQWxvcytFMVE3RkFoclFBc0ZIVy93CktzRjNyRndqdmcrL2MzcVo1Vk93dUQ1K2x1Y2xTY3pVTXkyVFNiSHpLQi9YZytLTnFXQ20rQkFnNHNSSkxRQ2gKc2ljQU5GT3lYVEF0Yzl2K2w2Z1U4MU1GOUhXZnFGa1haOTQ0czdmK1VjSE9RVXQ4T0JpVHZpTG5DblR6a1FuSwpzeFJLd3U0WkRCcnFON0ZLZFNYZkxIbE9HdDRKL0RMalRWQmJBaGFNLzFKVWhNOGpTUTZmVWI1VEkrYkVoMkdxCmMxWUcrVk0yS2hJeEZzQnpOcXM3WmFHK2lxNGdrQXZ4WVdHa3dzajZQMkw4TzlBeGdZa3cyZ3VwS1lhLzMveWkKSUthOE54Y214RWo3Yzlyak5IeHJTa3NpT1JQTFBTUlVYTUV6WGVUa1VxY0k3VkRyejJ4NDNEZkZkQ0c5eFNoYQo3dz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
+      service:
+        namespace: styra-system
+        name: opa
+        path: /v0/data/policy/com.styra.kubernetes.validating/main/main
+    admissionReviewVersions: ["v1", "v1beta1"]
+    timeoutSeconds: 1
+
+---
+
+kind: MutatingWebhookConfiguration
+apiVersion: admissionregistration.k8s.io/v1
+metadata:
+  name: opa-mutating-webhook
+webhooks:
+  - name: mutating-webhook.openpolicyagent.org
+    namespaceSelector:
+      matchExpressions:
+      - {key: openpolicyagent.org/webhook, operator: NotIn, values: [ ignore ]}
+    rules:
+      - operations: ["CREATE", "UPDATE"]
+        apiGroups: ["*"]
+        apiVersions: ["*"]
+        resources: ["*"]
+    sideEffects: None
+    failurePolicy: Ignore
+    clientConfig:
+      caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURMVENDQWhXZ0F3SUJBZ0lSQUxrQVNLcjhUZjdER0plZExUN0cyNEV3RFFZSktvWklodmNOQVFFTEJRQXcKRGpFTU1Bb0dBMVVFQ2hNRGIzQmhNQ0FYRFRJeU1Ea3lNekV4TXpneE5sb1lEekl3TlRBd01qQTRNVEV6T0RFMgpXakFPTVF3d0NnWURWUVFLRXdOdmNHRXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCCkFRQzZXbmwrUjdqSjIwcGdxZ0JNRDZsWHF0TnNURjZSejdESnF1alkzQXR5MFcxQnIydnFES0g1SFFzd0ZPdWUKcVJVa3RWM1I4ZVhXYkZHV1hqYjNHbDlpaGhpTkJtYWUwc3Q0OU9Tc0ROdW96dlJyZVNPL3JHa1FLK3A1Qk82cQpaM3RWZFpnTTBmUkJMZUxSdUJUblE1ZWtQMit0WXYzWE9IaG9Uc0lWWFBVbm4zYUFtT3NnYXAyU21ER3JxOFRWClNwaDJwMTlWZVJiRGd4WktwMTlZeTRmTG96R3NTbCtDc2hYV05hTjZhUGhERUxYNVFLSFQ0VHhxY0dCaUJIOUwKdGg2UzJGaHY2dVVtSHFvSVFPVlRuVHNSdzhraHlLNE5qWExrN2RxZDNxZDBnd1dqYmdJcHZzNGM0M2V1Q3dsVwp4L1RTMzc3NHFnZHQvZHppYTFVNHdxU3pBZ01CQUFHamdZTXdnWUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQjBHCkExVWRKUVFXTUJRR0NDc0dBUVVGQndNQ0JnZ3JCZ0VGQlFjREFUQVBCZ05WSFJNQkFmOEVCVEFEQVFIL01CMEcKQTFVZERnUVdCQlNzbklqT1BjbVhSNFpPZmpiY0VMTStIZHF3c3pBZkJnTlZIUkVFR0RBV2doUnZjR0V1YzNSNQpjbUV0YzNsemRHVnRMbk4yWXpBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQWxvcytFMVE3RkFoclFBc0ZIVy93CktzRjNyRndqdmcrL2MzcVo1Vk93dUQ1K2x1Y2xTY3pVTXkyVFNiSHpLQi9YZytLTnFXQ20rQkFnNHNSSkxRQ2gKc2ljQU5GT3lYVEF0Yzl2K2w2Z1U4MU1GOUhXZnFGa1haOTQ0czdmK1VjSE9RVXQ4T0JpVHZpTG5DblR6a1FuSwpzeFJLd3U0WkRCcnFON0ZLZFNYZkxIbE9HdDRKL0RMalRWQmJBaGFNLzFKVWhNOGpTUTZmVWI1VEkrYkVoMkdxCmMxWUcrVk0yS2hJeEZzQnpOcXM3WmFHK2lxNGdrQXZ4WVdHa3dzajZQMkw4TzlBeGdZa3cyZ3VwS1lhLzMveWkKSUthOE54Y214RWo3Yzlyak5IeHJTa3NpT1JQTFBTUlVYTUV6WGVUa1VxY0k3VkRyejJ4NDNEZkZkQ0c5eFNoYQo3dz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
+      service:
+        namespace: styra-system
+        name: opa
+        path: /v0/data/policy/com.styra.kubernetes.mutating/main/main
+    admissionReviewVersions: ["v1", "v1beta1"]
+    timeoutSeconds: 1
