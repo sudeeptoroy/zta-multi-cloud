@@ -24,7 +24,7 @@ read -p "Press any key to continue"
 kubectl -n online-boutique get pod -w --context=$CLUSTER1
 kubectl -n online-boutique get pod -w --context=$CLUSTER2
 
-INGRESS_HOST="$(kubectl --context="${CLUSTER1}" -n istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"
+INGRESS_HOST="$(kubectl --context="${CLUSTER1}" -n istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
 
 echo "$INGRESS_HOST"
 

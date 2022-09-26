@@ -23,7 +23,7 @@ managedNodeGroups:
   # privateNetworking: true
   #instanceType: t2.medium
   instanceType: m5.large
-  desiredCapacity: 3
+  desiredCapacity: 2
 
 #managedNodeGroups:
 #- name: google-cluster-ng
