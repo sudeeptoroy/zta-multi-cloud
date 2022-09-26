@@ -22,7 +22,7 @@ managedNodeGroups:
 - name: devup-ng
   # privateNetworking: true
   #instanceType: t2.medium
-  instanceType: m5.large
+  instanceType: m5.xlarge
   desiredCapacity: 2
 
 #managedNodeGroups:
