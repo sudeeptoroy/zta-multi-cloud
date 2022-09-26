@@ -1,7 +1,14 @@
+#!/bin/bash
+
+echo -e "########################################################################################"
+echo -e "#   This script will install the Online Boutique Isio multi-cluster                    #"
+echo -e "########################################################################################"
+read -p "Press any key to begin"
 
 echo "CLUSTER1 = ${CLUSTER1}\n CLUSTER2 = ${CLUSTER2}\n"
 
-NS="online-boutique"
+# NS="online-boutique"
+NS="99993-990003-1002-dev"
 
 read -p "Press any key to begin"
 
@@ -11,9 +18,9 @@ kubectl create --context="${CLUSTER2}" namespace $NS
 read -p "Press any key to continue"
 
 # Enable Istio on namespaces
-kubectl label --context="${CLUSTER1}" namespace $NS istio-injection=enabled --overwrite
-kubectl label --context="${CLUSTER2}" namespace $NS istio-injection=enabled --overwrite
-read -p "Press any key to continue"
+# kubectl label --context="${CLUSTER1}" namespace $NS istio-injection=enabled --overwrite
+# kubectl label --context="${CLUSTER2}" namespace $NS istio-injection=enabled --overwrite
+# read -p "Press any key to continue"
 
 # Deploy application
 kubectl apply --context="${CLUSTER1}" -f ./online-boutique/kubernetes-manifest.yaml  -n $NS
