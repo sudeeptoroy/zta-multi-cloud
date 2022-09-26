@@ -17,5 +17,5 @@ kubectl label ns kube-node-lease openpolicyagent.org/webhook=ignore --context="$
 kubectl label ns istio-system openpolicyagent.org/webhook=ignore --context="${CLUSTER1}"
 kubectl label ns istio-system openpolicyagent.org/webhook=ignore --context="${CLUSTER2}"
 
-kubectl apply -f cluster1-styra.yaml -n styra-system --context="${CLUSTER1}"
-kubectl apply -f cluster2-styra.yaml -n styra-system --context="${CLUSTER2}"
+kubectl apply -f styra/cluster1.yaml -n styra-system --context="${CLUSTER1}"
+kubectl apply -f styra/cluster2.yaml -n styra-system --context="${CLUSTER2}"

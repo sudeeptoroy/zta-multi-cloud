@@ -405,7 +405,7 @@ webhooks:
       - operations: ["CREATE", "UPDATE"]
         apiGroups: ["*"]
         apiVersions: ["*"]
-        resources: ["*"]
+        resources: ["namespaces", "authorizationpolicies", "networkpolicies", "deployments", "services", "ingresses"]
       - operations: ["CONNECT", "CREATE", "UPDATE"]
         apiGroups: ["*"]
         apiVersions: ["*"]
@@ -436,7 +436,7 @@ webhooks:
       - operations: ["CREATE", "UPDATE"]
         apiGroups: ["*"]
         apiVersions: ["*"]
-        resources: ["*"]
+        resources: ["namespaces", "authorizationpolicies", "networkpolicies", "deployments", "services", "ingresses"]
     sideEffects: None
     failurePolicy: Ignore
     clientConfig:
