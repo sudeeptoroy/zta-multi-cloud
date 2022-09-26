@@ -8,7 +8,7 @@ spec:
     global:
       meshID: devup
       multiCluster:
-        clusterName: kind-c2
+        clusterName: cluster2
       network: network2
   components:
     ingressGateways:
