@@ -23,10 +23,10 @@ read -p "Press any key to continue"
 kubectl -n online-boutique get pod -w --context=$CLUSTER1
 kubectl -n online-boutique get pod -w --context=$CLUSTER2
 
-# # Configure Istio
-# kubectl apply --context="${CLUSTER1}" -f ./online-boutique/istio-manifest.yaml  -n $NS
-# kubectl apply --context="${CLUSTER2}" -f ./online-boutique/istio-manifest.yaml  -n $NS
-# read -p "Press any key to continue"
+# Configure Istio
+kubectl apply --context="${CLUSTER1}" -f ./online-boutique/istio-manifest.yaml  -n $NS
+kubectl apply --context="${CLUSTER2}" -f ./online-boutique/istio-manifest.yaml  -n $NS
+read -p "Press any key to continue"
 
 INGRESS_HOST="$(kubectl --context="${CLUSTER1}" -n istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
 
