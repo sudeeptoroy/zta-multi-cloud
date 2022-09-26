@@ -21,7 +21,8 @@ vpc:
 managedNodeGroups:
 - name: devup-ng
   # privateNetworking: true
-  instanceType: t2.medium
+  #instanceType: t2.medium
+  instanceType: m5.large
   desiredCapacity: 3
 
 #managedNodeGroups:

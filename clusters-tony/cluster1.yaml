@@ -21,8 +21,9 @@ vpc:
 managedNodeGroups:
 - name: devup-ng
   # privateNetworking: true
-  instanceType: t2.medium
-  desiredCapacity: 3
+  #  instanceType: t2.medium
+  instanceType: m5.large
+  desiredCapacity: 2
 
         #managedNodeGroups:
         #- name: aws-cluster-ng
