@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: app
+spec:
+  hosts:
+    - productpage.default.svc
+  ports:
+    - number: 8000
+      name: http-port
+      protocol: HTTP
+      targetPort: 30746
+  resolution: DNS
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: app
+spec:
+  host: productpage.default.svc
+  trafficPolicy:
+    portLevelSettings:
+      - port:
+          number: 8000
+        tls:
+          mode: ISTIO_MUTUAL # initiates HTTPS when accessing productpage.default.svc

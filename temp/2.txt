@@ -1,0 +1,8 @@
+	modified:   ../bookinfo/service-entry.yaml
+	modified:   ../bookinfo/sleep.yaml
+	modified:   ../runbook.sh
+	modified:   agent-daemonset.yaml
+	modified:   server-configmap-client-cluster.yaml
+	modified:   server-configmap-server-cluster.yaml
+	modified:   server-statefulset.yaml
+	modified:   spiffeid.spiffe.io_spiffeids.yaml

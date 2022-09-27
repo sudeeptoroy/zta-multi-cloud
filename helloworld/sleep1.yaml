@@ -23,36 +23,36 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sleep
+  name: sleep1
   labels:
-    app: sleep
-    service: sleep
+    app: sleep1
+    service: sleep1
 spec:
   ports:
   - port: 80
     name: http
   selector:
-    app: sleep
+    app: sleep1
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sleep
+  name: sleep1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sleep
+      app: sleep1
   template:
     metadata:
       labels:
-        app: sleep
+        app: sleep1
       annotations:
         inject.istio.io/templates: "sidecar,spire"
         spiffe.io/federatesWith: "google.com"
     spec:
       terminationGracePeriodSeconds: 0
-      serviceAccountName: sleep
+      #      serviceAccountName: sleep
       containers:
       - name: sleep
         image: curlimages/curl

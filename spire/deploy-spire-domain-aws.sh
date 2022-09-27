@@ -7,6 +7,7 @@ set -e
 #kubectl create ns spire
 
 kubectl apply \
+    -f spire-ns.yaml \
     -f k8s-workload-registrar-crd-cluster-role.yaml \
     -f k8s-workload-registrar-crd-configmap-aws.yaml \
     -f spiffeid.spiffe.io_spiffeids.yaml

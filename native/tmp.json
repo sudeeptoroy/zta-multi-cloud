@@ -1,0 +1,59 @@
+{
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+        "creationTimestamp": "2022-09-18T17:25:32Z",
+        "deletionTimestamp": "2022-09-18T18:21:13Z",
+        "labels": {
+            "kubernetes.io/metadata.name": "istio-system",
+            "topology.istio.io/network": "aws-network"
+        },
+        "name": "istio-system",
+        "resourceVersion": "167793",
+        "uid": "9f188bff-c2ba-423f-8ca6-f52da7f6a14b"
+    },
+    "spec": {
+        "finalizers": [
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastTransitionTime": "2022-09-18T18:21:20Z",
+                "message": "All resources successfully discovered",
+                "reason": "ResourcesDiscovered",
+                "status": "False",
+                "type": "NamespaceDeletionDiscoveryFailure"
+            },
+            {
+                "lastTransitionTime": "2022-09-18T18:21:20Z",
+                "message": "All legacy kube types successfully parsed",
+                "reason": "ParsedGroupVersions",
+                "status": "False",
+                "type": "NamespaceDeletionGroupVersionParsingFailure"
+            },
+            {
+                "lastTransitionTime": "2022-09-18T18:30:42Z",
+                "message": "All content successfully deleted, may be waiting on finalization",
+                "reason": "ContentDeleted",
+                "status": "False",
+                "type": "NamespaceDeletionContentFailure"
+            },
+            {
+                "lastTransitionTime": "2022-09-18T18:21:20Z",
+                "message": "Some resources are remaining: spiffeids.spiffeid.spiffe.io has 3 resource instances",
+                "reason": "SomeResourcesRemain",
+                "status": "True",
+                "type": "NamespaceContentRemaining"
+            },
+            {
+                "lastTransitionTime": "2022-09-18T18:21:20Z",
+                "message": "Some content in the namespace has finalizers remaining: finalizers.spiffeid.spiffe.io in 3 resource instances",
+                "reason": "SomeFinalizersRemain",
+                "status": "True",
+                "type": "NamespaceFinalizersRemaining"
+            }
+        ],
+        "phase": "Terminating"
+    }
+}

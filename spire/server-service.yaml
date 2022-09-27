@@ -10,7 +10,7 @@ spec:
       port: 8081
       targetPort: 8081
       protocol: TCP
-    - name: bundle
+    - name: bundle-api
       port: 8443
       targetPort: 8443
       nodePort: 30007

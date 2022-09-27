@@ -47,9 +47,9 @@ spec:
     metadata:
       labels:
         app: sleep
+      # Injects custom sidecar template
       annotations:
         inject.istio.io/templates: "sidecar,spire"
-        spiffe.io/federatesWith: "google.com"
     spec:
       terminationGracePeriodSeconds: 0
       serviceAccountName: sleep
@@ -59,11 +59,11 @@ spec:
         command: ["/bin/sleep", "infinity"]
         imagePullPolicy: IfNotPresent
         volumeMounts:
-        - mountPath: /etc/sleep/tls
-          name: secret-volume
+        - name: tmp
+          mountPath: /tmp
+        securityContext:
+          runAsUser: 1000
       volumes:
-      - name: secret-volume
-        secret:
-          secretName: sleep-secret
-          optional: true
+      - name: tmp
+        emptyDir: {}
 ---
