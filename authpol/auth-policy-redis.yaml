@@ -1,0 +1,13 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: auth-policy
+  namespace: 99995-990005-1003-dev
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        namespaces: ["99996-990006-1002-dev"]
+    - source:
+        principals: ["cluster.local/ns/99996-990006-1002-dev/sa/default"]
