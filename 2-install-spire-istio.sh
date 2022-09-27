@@ -96,3 +96,17 @@ kubectl --context="${CLUSTER1}" exec --stdin spire-server-0 -c spire-server -n s
 
 # Set example.org bundle to domain.test SPIRE bundle endpoint
 kubectl --context="${CLUSTER2}" exec --stdin spire-server-0 -c spire-server -n spire -- /opt/spire/bin/spire-server bundle set -format spiffe -id spiffe://aws.com -socketPath /run/spire/sockets/server.sock <<< "$cluster1_bundle"
+
+######################
+# Install Istio
+#####################
+kubectl --context ${CLUSTER1} create ns istio-system
+kubectl --context ${CLUSTER2} create ns istio-system
+
+istioctl --context="${CLUSTER1}" install -f ./istio/istio-config-cluster1.yaml --skip-confirmation
+kubectl apply -f ./istio/auth.yaml
+kubectl apply -f ./istio/istio-ew-gw.yaml
+
+istioctl --context="${CLUSTER2}" install -f ./istio/istio-config-cluster2.yaml --skip-confirmation
+kubectl apply -f ./istio/auth.yaml
+kubectl apply -f ./istio/istio-ew-gw.yaml
