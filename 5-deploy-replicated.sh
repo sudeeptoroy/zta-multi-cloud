@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Check for input
-if [ $1 = "cluster1" ]
+if [ $1 == "cluster1" ]
 then
     CLUSTER=cluster1
-elif [ $1 = "cluster2" ]
+elif [ $1 == "cluster2" ]
 then
     CLUSTER=cluster2
-elif [ $1 = "cluster3" ]
+elif [ $1 == "cluster3" ]
 then
     CLUSTER=cluster3
 else
@@ -27,13 +27,13 @@ echo -e "Deploy frontend service to namespace ${NS0} on cluster $1"
 echo -e "########################################################################################"
 kubectl --context=${CLUSTER} create ns ${NS0}
 
-if [ ${CLUSTER} = "cluster1" ]
+if [ ${CLUSTER} == "cluster1" ]
 then
     kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/frontend-cluster1.yaml --namespace ${NS0}
-elif [ ${CLUSTER} = "cluster2" ]
+elif [ ${CLUSTER} == "cluster2" ]
 then
     kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/frontend-cluster2.yaml --namespace ${NS0}
-elif [ ${CLUSTER} = "cluster3" ]
+elif [ ${CLUSTER} == "cluster3" ]
 then
     kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/frontend-cluster3.yaml --namespace ${NS0}
 else

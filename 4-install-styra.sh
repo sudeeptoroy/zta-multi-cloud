@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Check for input
-if [ $1 = "cluster1" ]
+if [ $1 == "cluster1" ]
 then
     CLUSTER=cluster1
-elif [ $1 = "cluster2" ]
+elif [ $1 == "cluster2" ]
 then
     CLUSTER=cluster2
-elif [ $1 = "cluster3" ]
+elif [ $1 == "cluster3" ]
 then
     CLUSTER=cluster3
 else
@@ -30,13 +30,13 @@ kubectl label ns istio-system openpolicyagent.org/webhook=ignore --context="${CL
 
 # Install Styra
 # Only run redis-cart on one of the clusters
-if [ ${CLUSTER} = "cluster1" ]
+if [ ${CLUSTER} == "cluster1" ]
 then
     kubectl apply -f styra/cluster1.yaml -n styra-system --context="${CLUSTER}"
-elif [ ${CLUSTER} = "cluster2" ]
+elif [ ${CLUSTER} == "cluster2" ]
 then
     kubectl apply -f styra/cluster2.yaml -n styra-system --context="${CLUSTER}"
-elif [ ${CLUSTER} = "cluster3" ]
+elif [ ${CLUSTER} == "cluster3" ]
 then
     kubectl apply -f styra/cluster3.yaml -n styra-system --context="${CLUSTER}"
 else

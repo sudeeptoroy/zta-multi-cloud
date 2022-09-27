@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Check for input
-if [ $1 = "cluster1" ]
+if [ $1 == "cluster1" ]
 then
     CLUSTER=cluster1
-elif [ $1 = "cluster2" ]
+elif [ $1 == "cluster2" ]
 then
     CLUSTER=cluster2
-elif [ $1 = "cluster3" ]
+elif [ $1 == "cluster3" ]
 then
     CLUSTER=cluster3
 else

@@ -5,7 +5,7 @@ echo -e "#   This script will delete the Online Boutique Decomposed on Istio mul
 echo -e "########################################################################################"
 read -p "Press any key to begin"
 
-if [ $1 = "cluster1" ]
+if [ $1 == "cluster1" ]
 then
     CLUSTER=cluster1
 else

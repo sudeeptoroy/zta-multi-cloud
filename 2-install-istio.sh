@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Check for input
-if [ $1 = "cluster1" ]
+if [ $1 == "cluster1" ]
 then
     CLUSTER=cluster1
-elif [ $1 = "cluster2" ]
+elif [ $1 == "cluster2" ]
 then
     CLUSTER=cluster2
-elif [ $1 = "cluster3" ]
+elif [ $1 == "cluster3" ]
 then
     CLUSTER=cluster3
 else
@@ -28,7 +28,7 @@ read -p "Press any key to begin"
 kubectl --context ${CLUSTER} create ns istio-system
 
 # Only run redis-cart on one of the clusters
-if [ ${CLUSTER} = "cluster1" ]
+if [ ${CLUSTER} == "cluster1" ]
 then
     # Add labels
     kubectl --context="${CLUSTER1}" get namespace istio-system && kubectl --context="${CLUSTER1}" label namespace istio-system topology.istio.io/network=network1
@@ -42,7 +42,7 @@ then
     # Add secrets
     istioctl x create-remote-secret --context="${CLUSTER1}" --name=cluster1 | kubectl apply -f - --context="${CLUSTER2}"
     istioctl x create-remote-secret --context="${CLUSTER1}" --name=cluster1 | kubectl apply -f - --context="${CLUSTER3}"
-elif [ ${CLUSTER} = "cluster2" ]
+elif [ ${CLUSTER} == "cluster2" ]
 then
     # Add labels
     kubectl --context="${CLUSTER2}" get namespace istio-system && kubectl --context="${CLUSTER2}" label namespace istio-system topology.istio.io/network=network2
@@ -56,7 +56,7 @@ then
     # Add secrets
     istioctl x create-remote-secret --context="${CLUSTER2}" --name=cluster2 | kubectl apply -f - --context="${CLUSTER1}"
     istioctl x create-remote-secret --context="${CLUSTER2}" --name=cluster2 | kubectl apply -f - --context="${CLUSTER3}"
-elif [ ${CLUSTER} = "cluster3" ]
+elif [ ${CLUSTER} == "cluster3" ]
 then
     # Add labels
     kubectl --context="${CLUSTER3}" get namespace istio-system && kubectl --context="${CLUSTER3}" label namespace istio-system topology.istio.io/network=network3
