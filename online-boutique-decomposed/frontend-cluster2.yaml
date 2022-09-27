@@ -64,20 +64,20 @@ spec:
           env:
           - name: PORT
             value: "8080"
+          - name: AD_SERVICE_ADDR
+            value: "adservice.99995-990005-1002-dev:9555"
           - name: PRODUCT_CATALOG_SERVICE_ADDR
             value: "productcatalogservice.99995-990005-1002-dev:3550"
-          - name: CURRENCY_SERVICE_ADDR
-            value: "currencyservice.99997-990007-1002-dev:7000"
-          - name: CART_SERVICE_ADDR
-            value: "cartservice.99995-990005-1002-dev:7070"
           - name: RECOMMENDATION_SERVICE_ADDR
             value: "recommendationservice.99995-990005-1002-dev:8080"
-          - name: SHIPPING_SERVICE_ADDR
-            value: "shippingservice.99995-990005-1002-dev:50051"
           - name: CHECKOUT_SERVICE_ADDR
-            value: "checkoutservice.99995-990005-1002-dev:5050"
-          - name: AD_SERVICE_ADDR
-            value: "adservice.99996-990006-1002-dev:9555"
+            value: "checkoutservice.99992-990002-1002-dev:5050"
+          - name: CART_SERVICE_ADDR
+            value: "cartservice.99996-990006-1002-dev:7070"
+          - name: CURRENCY_SERVICE_ADDR
+            value: "currencyservice.99997-990007-1002-dev:7000"
+          - name: SHIPPING_SERVICE_ADDR
+            value: "shippingservice.99997-990007-1002-dev:50051"
           # # ENV_PLATFORM: One of: local, gcp, aws, azure, onprem, alibaba
           # # When not set, defaults to "local" unless running in GKE, otherwies auto-sets to gcp
           - name: ENV_PLATFORM 

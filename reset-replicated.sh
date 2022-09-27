@@ -9,26 +9,26 @@ read -p "Press any key to begin"
 kubectl scale -n $NS0 deploy frontend --replicas=1 --context=$CLUSTER1
 kubectl scale -n $NS0 deploy frontend --replicas=1 --context=$CLUSTER2
 
-kubectl scale -n $NS3 deploy paymentservice --replicas=1 --context=$CLUSTER1
-kubectl scale -n $NS3 deploy paymentservice --replicas=1 --context=$CLUSTER2
-
-kubectl scale -n $NS1 deploy cartservice --replicas=1 --context=$CLUSTER1
-kubectl scale -n $NS1 deploy cartservice --replicas=1 --context=$CLUSTER2
-
-kubectl scale -n $NS1 deploy checkoutservice --replicas=1 --context=$CLUSTER1
-kubectl scale -n $NS1 deploy checkoutservice --replicas=1 --context=$CLUSTER2
-
-kubectl scale -n $NS1 deploy productcatalogservice --replicas=1 --context=$CLUSTER1
-kubectl scale -n $NS1 deploy productcatalogservice --replicas=1 --context=$CLUSTER2
+kubectl scale -n $NS1 deploy adservice --replicas=1 --context=$CLUSTER1
+kubectl scale -n $NS1 deploy adservice --replicas=1 --context=$CLUSTER2
 
 kubectl scale -n $NS1 deploy recommendationservice --replicas=1 --context=$CLUSTER1
 kubectl scale -n $NS1 deploy recommendationservice --replicas=1 --context=$CLUSTER2
 
-kubectl scale -n $NS1 deploy shippingservice --replicas=1 --context=$CLUSTER1
-kubectl scale -n $NS1 deploy shippingservice --replicas=1 --context=$CLUSTER2
+kubectl scale -n $NS1 deploy productcatalogservice --replicas=1 --context=$CLUSTER1
+kubectl scale -n $NS1 deploy productcatalogservice --replicas=1 --context=$CLUSTER2
 
-kubectl scale -n $NS4 deploy adservice --replicas=1 --context=$CLUSTER1
-kubectl scale -n $NS4 deploy adservice --replicas=1 --context=$CLUSTER2
+kubectl scale -n $NS3 deploy checkoutservice --replicas=1 --context=$CLUSTER1
+kubectl scale -n $NS3 deploy checkoutservice --replicas=1 --context=$CLUSTER2
+
+kubectl scale -n $NS4 deploy cartservice --replicas=1 --context=$CLUSTER1
+kubectl scale -n $NS4 deploy cartservice --replicas=1 --context=$CLUSTER2
+
+kubectl scale -n $NS5 deploy paymentservice --replicas=1 --context=$CLUSTER1
+kubectl scale -n $NS5 deploy paymentservice --replicas=1 --context=$CLUSTER2
+
+kubectl scale -n $NS5 deploy shippingservice --replicas=1 --context=$CLUSTER1
+kubectl scale -n $NS5 deploy shippingservice --replicas=1 --context=$CLUSTER2
 
 kubectl scale -n $NS5 deploy currencyservice --replicas=1 --context=$CLUSTER1
 kubectl scale -n $NS5 deploy currencyservice --replicas=1 --context=$CLUSTER2

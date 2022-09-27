@@ -26,53 +26,47 @@ else
 fi
 
 echo -e "########################################################################################"
-echo -e "Deploy services to namespace ${NS1}"
+echo -e "Deploy productcatalog, recommendationm and ad services to namespace ${NS1}"
 echo -e "########################################################################################"
-read -p "Press any key to begin"
 kubectl --context=${CLUSTER} create ns ${NS1}
 
 kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/productcatalogservice.yaml --namespace ${NS1}
 kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/recommendationservice.yaml --namespace ${NS1}
-kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/cartservice.yaml --namespace ${NS1}
-kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/checkoutservice.yaml --namespace ${NS1}
-kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/shippingservice.yaml --namespace ${NS1}
+kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/adservice.yaml --namespace ${NS1}
 
 echo -e "########################################################################################"
 echo -e "Deploy redis service to namespace ${NS2}"
 echo -e "########################################################################################"
-read -p "Press any key to begin"
 kubectl --context=${CLUSTER} create ns ${NS2}
 
 kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/redis.yaml --namespace ${NS2}
 
 echo -e "########################################################################################"
-echo -e "Deploy paymentservice service to namespace ${NS3}"
+echo -e "Deploy checkout service to namespace ${NS3}"
 echo -e "########################################################################################"
-read -p "Press any key to begin"
 kubectl --context=${CLUSTER} create ns ${NS3}
 
-kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/paymentservice.yaml --namespace ${NS3}
+kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/checkoutservice.yaml --namespace ${NS3}
 
 echo -e "########################################################################################"
-echo -e "Deploy adservice service to namespace ${NS4}"
+echo -e "Deploy cart service to namespace ${NS4}"
 echo -e "########################################################################################"
-read -p "Press any key to begin"
 kubectl --context=${CLUSTER} create ns ${NS4}
 
-kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/adservice.yaml --namespace ${NS4}
+kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/cartservice.yaml --namespace ${NS4}
 
 echo -e "########################################################################################"
-echo -e "Deploy currencyservice service to namespace ${NS5}"
+echo -e "Deploy currency, payment, and shipping services to namespace ${NS5}"
 echo -e "########################################################################################"
-read -p "Press any key to begin"
 kubectl --context=${CLUSTER} create ns ${NS5}
 
 kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/currencyservice.yaml --namespace ${NS5}
+kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/paymentservice.yaml --namespace ${NS5}
+kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/shippingservice.yaml --namespace ${NS5}
 
 echo -e "########################################################################################"
 echo -e "Deploy emailservice service to namespace ${NS6}"
 echo -e "########################################################################################"
-read -p "Press any key to begin"
 kubectl --context=${CLUSTER} create ns ${NS6}
 
 kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/emailservice.yaml --namespace ${NS6}
@@ -94,7 +88,7 @@ else
 fi
 
 echo -e "########################################################################################"
-echo -e "Configure Istio on namespace ${NS7}"
+echo -e "Configure Istio on namespace ${NS0}"
 echo -e "########################################################################################"
 read -p "Press any key to begin"
 
