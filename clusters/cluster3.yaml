@@ -2,7 +2,7 @@
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
-  name: cluster1
+  name: cluster3
   region: us-east-1
   version: "1.23"
 vpc:
@@ -21,23 +21,23 @@ vpc:
 managedNodeGroups:
 - name: devup-ng
   # privateNetworking: true
-  #  instanceType: t2.medium
+  #instanceType: t2.medium
   instanceType: m5.xlarge
   desiredCapacity: 2
 
-        #managedNodeGroups:
-        #- name: aws-cluster-ng
-        #  privateNetworking: true
-        #  instanceType: m5.large
-        #  desiredCapacity: 1
-        #- name: spot
-        #  privateNetworking: true
-        #  instanceType: t3.medium
-        #  spot: true
-        #  desiredCapacity: 2
-        #  labels:
-        #    role: spot
-        #  taints:
-        #  - key: spot
-        #    value: "true"
-        #    effect: NoSchedule
+#managedNodeGroups:
+#- name: google-cluster-ng
+#  privateNetworking: true
+#  instanceType: m5.large
+#  desiredCapacity: 1
+#- name: spot
+#  privateNetworking: true
+#  instanceType: t3.medium
+#  spot: true
+#  desiredCapacity: 2
+#  labels:
+#    role: spot
+#  taints:
+#  - key: spot
+#    value: "true"
+#    effect: NoSchedule

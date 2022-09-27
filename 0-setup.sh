@@ -9,6 +9,7 @@ echo -e "#######################################################################
 # Export variables
 export CLUSTER1=cluster1
 export CLUSTER2=cluster2
+export CLUSTER3=cluster3
 
 # Set the namespaces we will use
 export NS0=99995-990005-1001-dev

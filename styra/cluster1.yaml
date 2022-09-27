@@ -109,7 +109,7 @@ metadata:
   namespace: styra-system
   name: opa
 spec:
-  replicas: 3
+  replicas: 1
   serviceName: "opa"
   selector:
     matchLabels:

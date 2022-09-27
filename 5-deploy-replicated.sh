@@ -5,11 +5,21 @@ echo -e "#   This script will install the Online Boutique Decomposed into Istio 
 echo -e "########################################################################################"
 read -p "Press any key to begin"
 
+# Check for input
 if [ $1 = "cluster1" ]
 then
     CLUSTER=cluster1
-else
+elif [ $1 = "cluster2" ]
+then
     CLUSTER=cluster2
+elif [ $1 = "cluster3" ]
+then
+    CLUSTER=cluster3
+else
+    echo -e "########################################################################################"
+    echo -e "   Must specify cluster1, cluster2, cluster3" 
+    echo -e "########################################################################################"
+    exit 1    
 fi
 
 echo -e "########################################################################################"
@@ -21,8 +31,17 @@ kubectl --context=${CLUSTER} create ns ${NS0}
 if [ ${CLUSTER} = "cluster1" ]
 then
     kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/frontend-cluster1.yaml --namespace ${NS0}
-else
+elif [ ${CLUSTER} = "cluster2" ]
+then
     kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/frontend-cluster2.yaml --namespace ${NS0}
+elif [ ${CLUSTER} = "cluster3" ]
+then
+    kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/frontend-cluster3.yaml --namespace ${NS0}
+else
+    echo -e "########################################################################################"
+    echo -e "   Must specify cluster1, cluster2, cluster3" 
+    echo -e "########################################################################################"
+    exit 1
 fi
 
 echo -e "########################################################################################"
@@ -83,8 +102,14 @@ kubectl --context=${CLUSTER} apply -f ./online-boutique-decomposed/loadgenerator
 if [ ${CLUSTER} = "cluster1" ]
 then
     kubectl scale -n99995-990005-1003-dev deploy redis-cart --replicas=1 --context=$CLUSTER
-else
+elif [ ${CLUSTER} = "cluster2" ]
+then
     kubectl scale -n99995-990005-1003-dev deploy redis-cart --replicas=0 --context=$CLUSTER
+elif [ ${CLUSTER} = "cluster3" ]
+then
+    kubectl scale -n99995-990005-1003-dev deploy redis-cart --replicas=0 --context=$CLUSTER
+else
+    echo -e "Invalid input"
 fi
 
 echo -e "########################################################################################"

@@ -4,25 +4,23 @@ kind: ClusterConfig
 metadata:
   name: cluster2
   region: us-east-1
-  version: "1.23"
 vpc:
-  id: vpc-00a7bd690b8bb1ae9
+  id: vpc-098ba9e6b243f0658
   subnets:
     private:
       us-east-1a:
-        id: subnet-085538692d0ffc022
+        id: subnet-041b1a01973816a46
       us-east-1b:
-        id: subnet-0edf981d50c9d56df
+        id: subnet-0f674af0dbb776898
     public:
       us-east-1a:
-        id: subnet-09f6e1bf3e07944aa
+        id: subnet-08455958c57bb7be1
       us-east-1b:
-        id: subnet-0062d7d36fa35dccb
+        id: subnet-0e3be51304c3da1ee
 managedNodeGroups:
-- name: devup-ng
-  # privateNetworking: true
-  #instanceType: t2.medium
-  instanceType: m5.xlarge
+- name: general
+  #  privateNetworking: true
+  instanceType: m5.large
   desiredCapacity: 2
 
 #managedNodeGroups:

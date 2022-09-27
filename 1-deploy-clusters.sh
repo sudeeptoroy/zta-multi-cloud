@@ -11,16 +11,22 @@ echo -e "#######################################################################
 read -p "Press any key to begin"
 
 echo -e "########################################################################################"
-echo -d "#  Create EKS clusters                                                              #"
+echo -e "#  Create 2 EKS clusters                                                             #"
 echo -e "########################################################################################"
 read -p "Press any key to continue"
 
-eksctl create cluster -f clusters-tony/cluster1.yaml
+echo -e "   Cluster1"
+eksctl create cluster -f clusters/cluster1.yaml
 read -p "Press any key to continue"
 
-eksctl create cluster -f clusters-tony/cluster2.yaml
+echo -e "   Cluster2"
+eksctl create cluster -f clusters/cluster2.yaml
 read -p "Press any key to continue"
 
-# Update contexts
-aws eks update-kubeconfig --region us-east-1 --name cluster1
-aws eks update-kubeconfig --region us-east-1 --name cluster2
+echo -e "   Cluster3"
+eksctl create cluster -f clusters/cluster3.yaml
+
+# Rename Clusters
+kubectx tfarinacci@cluster1.us-east-1.eksctl.io=cluster1
+kubectx tfarinacci@cluster2.us-east-1.eksctl.io=cluster2
+kubectx tfarinacci@cluster3.us-east-1.eksctl.io=cluster3
