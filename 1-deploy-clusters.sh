@@ -27,6 +27,6 @@ echo -e "   Cluster3"
 eksctl create cluster -f clusters/cluster3.yaml
 
 # Rename Clusters
-kubectx tfarinacci@cluster1.us-east-1.eksctl.io=cluster1
-kubectx tfarinacci@cluster2.us-east-1.eksctl.io=cluster2
-kubectx tfarinacci@cluster3.us-east-1.eksctl.io=cluster3
+kubectx cluster1=tfarinacci@cluster1.us-east-1.eksctl.io
+kubectx cluster2=tfarinacci@cluster2.us-east-1.eksctl.io
+kubectx cluster3=tfarinacci@cluster3.us-east-1.eksctl.io

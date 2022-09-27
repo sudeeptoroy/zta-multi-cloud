@@ -29,4 +29,16 @@ kubectl label ns kube-node-lease openpolicyagent.org/webhook=ignore --context="$
 kubectl label ns istio-system openpolicyagent.org/webhook=ignore --context="${CLUSTER}"
 
 # Install Styra
-kubectl apply -f styra/cluster1.yaml -n styra-system --context="${CLUSTER}"
+# Only run redis-cart on one of the clusters
+if [ ${CLUSTER} = "cluster1" ]
+then
+    kubectl apply -f styra/cluster1.yaml -n styra-system --context="${CLUSTER}"
+elif [ ${CLUSTER} = "cluster2" ]
+then
+    kubectl apply -f styra/cluster2.yaml -n styra-system --context="${CLUSTER}"
+elif [ ${CLUSTER} = "cluster3" ]
+then
+    kubectl apply -f styra/cluster3.yaml -n styra-system --context="${CLUSTER}"
+else
+    echo -e "Invalid input"
+fi
