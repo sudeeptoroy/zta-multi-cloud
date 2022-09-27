@@ -25,7 +25,6 @@ read -p "Press any key to begin"
 echo -e "########################################################################################"
 echo -e "Deploy frontend service to namespace ${NS0} on cluster $1" 
 echo -e "########################################################################################"
-read -p "Press any key to begin"
 kubectl --context=${CLUSTER} create ns ${NS0}
 
 if [ ${CLUSTER} = "cluster1" ]
@@ -112,13 +111,14 @@ else
     echo -e "Invalid input"
 fi
 
+sleep 20
+
 echo -e "########################################################################################"
 echo -e "Configure Istio on namespace ${NS0}"
 echo -e "########################################################################################"
-read -p "Press any key to begin"
-
 kubectl --context=${CLUSTER} apply -f ./online-boutique/istio-manifest.yaml --namespace ${NS0}
-read -p "Press any key to continue"
+
+sleep30
 
 INGRESS_HOST="$(kubectl --context=${CLUSTER} --namespace istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
 
