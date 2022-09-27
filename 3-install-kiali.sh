@@ -1,10 +1,5 @@
 #!/bin/bash
 
-echo -e "########################################################################################"
-echo -e "#   This script will install Kiali on Isio multi-cluster                               #"
-echo -e "########################################################################################"
-read -p "Press any key to begin"
-
 # Check for input
 if [ $1 = "cluster1" ]
 then
@@ -21,6 +16,11 @@ else
     echo -e "########################################################################################"
     exit 1    
 fi
+
+echo -e "########################################################################################"
+echo -e "#   This script will install Kiali on Isio multi-cluster                               #"
+echo -e "########################################################################################"
+read -p "Press any key to begin"
 
 kubectl --context=${CLUSTER} apply -f kiali/jaeger.yaml -n istio-system
 kubectl --context=${CLUSTER} apply -f kiali/prometheus.yaml -n istio-system

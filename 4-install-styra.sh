@@ -1,10 +1,5 @@
 #!/bin/bash
 
-echo -e "########################################################################################"
-echo -e "#   This script will install Styra DAS on  Isio multi-cluster                          #"
-echo -e "########################################################################################"
-read -p "Press any key to begin"
-
 # Check for input
 if [ $1 = "cluster1" ]
 then
@@ -21,6 +16,11 @@ else
     echo -e "########################################################################################"
     exit 1    
 fi
+
+echo -e "########################################################################################"
+echo -e "#   This script will install Styra DAS on  Isio multi-cluster                          #"
+echo -e "########################################################################################"
+read -p "Press any key to begin"
 
 # Label put of scope namespace
 kubectl label ns kube-system openpolicyagent.org/webhook=ignore --context="${CLUSTER}"

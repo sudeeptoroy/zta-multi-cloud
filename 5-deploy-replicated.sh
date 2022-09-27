@@ -1,10 +1,5 @@
 #!/bin/bash
 
-echo -e "########################################################################################"
-echo -e "#   This script will install the Online Boutique Decomposed into Istio multi-cluster   #"
-echo -e "########################################################################################"
-read -p "Press any key to begin"
-
 # Check for input
 if [ $1 = "cluster1" ]
 then
@@ -21,6 +16,11 @@ else
     echo -e "########################################################################################"
     exit 1    
 fi
+
+echo -e "########################################################################################"
+echo -e "#   This script will install the Online Boutique Decomposed into Istio multi-cluster   #"
+echo -e "########################################################################################"
+read -p "Press any key to begin"
 
 echo -e "########################################################################################"
 echo -e "Deploy frontend service to namespace ${NS0} on cluster $1" 
