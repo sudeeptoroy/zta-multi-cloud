@@ -39,9 +39,6 @@ then
     # Install istio
     istioctl install -f istio/istio1.yaml --context "${CLUSTER1}"
 
-    # Add secrets
-    istioctl x create-remote-secret --context="${CLUSTER1}" --name=cluster1 | kubectl apply -f - --context="${CLUSTER2}"
-    istioctl x create-remote-secret --context="${CLUSTER1}" --name=cluster1 | kubectl apply -f - --context="${CLUSTER3}"
 elif [ ${CLUSTER} == "cluster2" ]
 then
     # Add labels
@@ -53,9 +50,6 @@ then
     # Install istio
     istioctl install -f istio/istio2.yaml --context "${CLUSTER2}"
 
-    # Add secrets
-    istioctl x create-remote-secret --context="${CLUSTER2}" --name=cluster2 | kubectl apply -f - --context="${CLUSTER1}"
-    istioctl x create-remote-secret --context="${CLUSTER2}" --name=cluster2 | kubectl apply -f - --context="${CLUSTER3}"
 elif [ ${CLUSTER} == "cluster3" ]
 then
     # Add labels
@@ -67,9 +61,6 @@ then
     # Install istio
     istioctl install -f istio/istio3.yaml --context "${CLUSTER3}"
 
-    # Add secrets
-    istioctl x create-remote-secret --context="${CLUSTER3}" --name=cluster3 | kubectl apply -f - --context="${CLUSTER1}"
-    istioctl x create-remote-secret --context="${CLUSTER3}" --name=cluster3 | kubectl apply -f - --context="${CLUSTER2}"
 else
     echo -e "Invalid input"
 fi
