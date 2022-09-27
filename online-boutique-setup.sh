@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "########################################################################################"
-echo -e "#   This script will install the Online Boutique Isio multi-cluster                    #"
+echo -e "#   This script will install the Online Boutique Istio multi-cluster                   #"
 echo -e "########################################################################################"
 read -p "Press any key to begin"
 
@@ -23,8 +23,8 @@ read -p "Press any key to continue"
 # read -p "Press any key to continue"
 
 # Deploy application
-kubectl apply --context="${CLUSTER1}" -f ./online-boutique/kubernetes-manifest.yaml  -n $NS
-kubectl apply --context="${CLUSTER2}" -f ./online-boutique/kubernetes-manifest.yaml  -n $NS
+kubectl apply --context="${CLUSTER1}" -f ./online-boutique/kubernetes-cluster1-manifest.yaml  -n $NS
+kubectl apply --context="${CLUSTER2}" -f ./online-boutique/kubernetes-cluster2-manifest.yaml  -n $NS
 read -p "Press any key to continue"
 
 kubectl -n online-boutique get pod -w --context=$CLUSTER1
