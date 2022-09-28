@@ -10,6 +10,7 @@ echo -e "#######################################################################
 echo -e " Deploy productcatalog, recommendationm and ad services to namespace ${NS1}"
 echo -e "########################################################################################"
 kubectl --context=${CLUSTER3} create ns ${NS1}
+kubectl --context=${CLUSTER3} label ns ${NS1} istio-injection=enabled --overwrite
 
 kubectl --context=${CLUSTER3} apply -f ./online-boutique-decomposed/productcatalogservice.yaml --namespace ${NS1}
 kubectl --context=${CLUSTER3} apply -f ./online-boutique-decomposed/recommendationservice.yaml --namespace ${NS1}
@@ -19,6 +20,7 @@ echo -e "#######################################################################
 echo -e " Deploy emailservice service to namespace ${NS6}"
 echo -e "########################################################################################"
 kubectl --context=${CLUSTER3} create ns ${NS6}
+kubectl --context=${CLUSTER3} label ns ${NS6} istio-injection=enabled --overwrite
 
 kubectl --context=${CLUSTER3} apply -f ./online-boutique-decomposed/emailservice.yaml --namespace ${NS6}
 
