@@ -6,7 +6,6 @@ echo -e "#      To run and update environment variables:"
 echo -e "#          . ./0-setup.sh"
 echo -e "########################################################################################"
 
-echo "
 # Export variables
 export CLUSTER1=cluster1
 export CLUSTER2=cluster2
@@ -20,4 +19,4 @@ export NS3=99992-990002-1002-dev
 export NS4=99996-990006-1002-dev
 export NS5=99997-990007-1002-dev
 export NS6=99998-990008-1002-dev
-export NS7=99990-900002-9002-dev"
+export NS7=99990-900002-9002-dev
