@@ -8,8 +8,11 @@ read -p "Press any key to begin"
 if [ $1 == "cluster1" ]
 then
     CLUSTER=cluster1
-else
+elif [ $1 == "cluster2" ]
+then
     CLUSTER=cluster2
+else
+    CLUSTER=cluster3
 fi
 
 kubectl --context=${CLUSTER} delete ns ${NS0}
