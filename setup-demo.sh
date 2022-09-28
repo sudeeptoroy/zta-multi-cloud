@@ -12,8 +12,8 @@ read -p "Press any key to begin"
 ./1-deploy-clusters.sh cluster3
 
 ./2-install-istio.sh cluster1
-./2-install-istio.sh cluster1
-./2-install-istio.sh cluster1
+./2-install-istio.sh cluster2
+./2-install-istio.sh cluster3
 
 ./3-enable-istio-multicluster.sh
 

@@ -68,7 +68,7 @@ fi
 # Add Istio gateways
 kubectl apply -f istio/istio-ew-gw.yaml --context "${CLUSTER}"
 
-echo -e "##############################################################################################################"
-echo -e "Go to aws console, select the east west elb .. listeners ..then select the target group for 15443...         #"
-echo -e "   and then go to attribute ..edit to remove the client ip preserve ( Preserve client IP addresses)          #"   
-echo -e "##############################################################################################################"
+# echo -e "##############################################################################################################"
+# echo -e "Go to aws console, select the east west elb .. listeners ..then select the target group for 15443...         #"
+# echo -e "   and then go to attribute ..edit to remove the client ip preserve ( Preserve client IP addresses)          #"   
+# echo -e "##############################################################################################################"
