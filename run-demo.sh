@@ -22,8 +22,8 @@ echo -e "#   Enable Istio on the replicated architecture on cluster1 and cluster
 echo -e "########################################################################################"
 read -p "Press any key to begin"
 ./7-enable-istio.sh cluster1
-sleep 5
 ./7-enable-istio.sh cluster2
+./7-enable-istio.sh cluster3
 
 echo -e "########################################################################################"
 echo -e "#   Deploy the segregated architecture on cluster1                                     #"
