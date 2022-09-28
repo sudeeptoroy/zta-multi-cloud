@@ -32,6 +32,8 @@ kubectl --context=${CLUSTER} label ns ${NS5} istio-injection=enabled --overwrite
 kubectl --context=${CLUSTER} label ns ${NS6} istio-injection=enabled --overwrite
 kubectl --context=${CLUSTER} label ns ${NS7} istio-injection=enabled --overwrite
 
+sleep 1
+
 # Restart pods
 kubectl --context=${CLUSTER} delete pod --all --namespace  ${NS0}
 kubectl --context=${CLUSTER} delete pod --all --namespace  ${NS1}
