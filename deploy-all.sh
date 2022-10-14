@@ -25,8 +25,8 @@ eksctl create cluster -f cluster-google.yaml --profile adfs
 #  --ssh-public-key my-key
 
 
-CLUSTER1=V710894@aws-cluster.us-east-1.eksctl.io
-CLUSTER2=V710894@google-cluster.us-east-1.eksctl.io
+CLUSTER1=<>@aws-cluster.us-east-1.eksctl.io
+CLUSTER2=<>@google-cluster.us-east-1.eksctl.io
 
 kubectl config use-context $CLUSTER1
 
