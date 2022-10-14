@@ -1,0 +1,16 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: helloworld
+  namespace: sample
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals: ["aws.com/ns/sample/sa/sleep"]
+    to:
+    - operation:
+        methods: ["GET"]
+        paths: ["/*"]
+

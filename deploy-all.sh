@@ -39,7 +39,7 @@ kubectl config use-context $CLUSTER1
 
 kubectl create ns istio-system
 kubectl create ns spire
-kubectl apply -f ./configmaps.yaml
+kubectl apply -f ./spire/configmaps.yaml
 
 (cd spire ; ./deploy-spire-domain-aws.sh)
 
@@ -57,7 +57,7 @@ kubectl config use-context $CLUSTER2
 
 kubectl create ns istio-system
 kubectl create ns spire
-kubectl apply -f ./configmaps.yaml
+kubectl apply -f ./spire/configmaps.yaml
 
 (cd spire ; ./deploy-spire-domain-google.sh)
 
@@ -156,4 +156,11 @@ kubectl exec --context="${CLUSTER2}" -n sample -c sleep \
     app=sleep -o jsonpath='{.items[0].metadata.name}')" \
     -- curl -sS helloworld.sample:5000/hello
 
+
+## Debug
+
+kubectl run debug --image=pete911/debug-pod --rm -it --restart=Never -- sh
+
+
+kubectl exec --stdin --tty -n spire spire-server-0  -- /opt/spire/bin/spire-server x509 mint -spiffeID spiffe://example.org/service2 -socketPath /run/spire/sockets/api.sock
 
