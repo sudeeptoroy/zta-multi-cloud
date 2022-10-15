@@ -99,7 +99,7 @@ kubectl config use-context $CLUSTER2
 
 istioctl x create-remote-secret --context="${CLUSTER1}" --name=aws-cluster | kubectl apply -f - --context="${CLUSTER2}"
 
-istioctl x create-remote-secret --context="${CLUSTER2}" --name=googel-cluster | kubectl apply -f - --context="${CLUSTER1}"
+istioctl x create-remote-secret --context="${CLUSTER2}" --name=google-cluster | kubectl apply -f - --context="${CLUSTER1}"
 
 
 ######################
@@ -163,4 +163,16 @@ kubectl run debug --image=pete911/debug-pod --rm -it --restart=Never -- sh
 
 
 kubectl exec --stdin --tty -n spire spire-server-0  -- /opt/spire/bin/spire-server x509 mint -spiffeID spiffe://example.org/service2 -socketPath /run/spire/sockets/api.sock
+
+
+---
+
+kubectl --context="${CTX_CLUSTER1}" exec --stdin --tty -n spire spire-server-0  -c spire-server -- /opt/spire/bin/spire-server x509 mint -spiffeID spiffe://aws.com/debug -socketPath /run/spire/sockets/server.sock
+
+
+kubectl --context="${CTX_CLUSTER2}" run debug --image=pete911/debug-pod --rm -it --restart=Never -- sh
+
+curl --cert /tmp/cert.pem --key /tmp/key.pem --cacert /tmp/cacert.pem https://
+helloworld.sample.svc.cluster.local:5000/hello -k
+
 

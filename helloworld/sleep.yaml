@@ -50,6 +50,7 @@ spec:
       annotations:
         inject.istio.io/templates: "sidecar,spire"
         spiffe.io/federatesWith: "aws.com"
+        #        spiffe.io/federatesWith: "google.com"
     spec:
       terminationGracePeriodSeconds: 0
       serviceAccountName: sleep
