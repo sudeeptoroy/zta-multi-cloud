@@ -118,7 +118,7 @@ echo -e "Configure Istio on namespace ${NS0}"
 echo -e "########################################################################################"
 kubectl --context=${CLUSTER} apply -f ./online-boutique/istio-manifest.yaml --namespace ${NS0}
 
-sleep30
+sleep 30
 
 INGRESS_HOST="$(kubectl --context=${CLUSTER} --namespace istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
 

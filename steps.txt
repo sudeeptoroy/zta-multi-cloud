@@ -1,0 +1,23 @@
+. ./0-setup.sh
+./1.1-deploy-clusters-kind.sh
+./2-install-istio.sh cluster1
+./2-install-istio.sh cluster2
+./2-install-istio.sh cluster3
+./3.1-enable-istio-multicluster-kind.sh
+./4-install-kiali.sh cluster1
+
+./6-deploy-replicated.sh cluster1
+./6-deploy-replicated.sh cluster2
+#./6-deploy-replicated.sh cluster3
+
+./7-enable-istio.sh cluster1
+./7-enable-istio.sh cluster2
+./7-enable-istio.sh cluster3
+
+./8-deploy-segregated.sh
+
+./9-deploy-cluster3.sh
+
+
+
+

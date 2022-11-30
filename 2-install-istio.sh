@@ -37,7 +37,7 @@ then
     kubectl --context="${CLUSTER1}" create secret generic cacerts -n istio-system --from-file=certs/cluster1/ca-cert.pem --from-file=certs/cluster1/ca-key.pem --from-file=certs/cluster1/root-cert.pem --from-file=certs/cluster1/cert-chain.pem
 
     # Install istio
-    istioctl install -f istio/istio1.yaml --context "${CLUSTER1}"
+    istioctl install -f istio/istio1.yaml -y --context "${CLUSTER1}"
 
 elif [ ${CLUSTER} == "cluster2" ]
 then
@@ -48,7 +48,7 @@ then
     kubectl --context="${CLUSTER2}" create secret generic cacerts -n istio-system --from-file=certs/cluster2/ca-cert.pem --from-file=certs/cluster2/ca-key.pem --from-file=certs/cluster2/root-cert.pem --from-file=certs/cluster2/cert-chain.pem
 
     # Install istio
-    istioctl install -f istio/istio2.yaml --context "${CLUSTER2}"
+    istioctl install -f istio/istio2.yaml -y --context "${CLUSTER2}"
 
 elif [ ${CLUSTER} == "cluster3" ]
 then
@@ -59,7 +59,7 @@ then
     kubectl --context="${CLUSTER3}" create secret generic cacerts -n istio-system --from-file=certs/cluster3/ca-cert.pem --from-file=certs/cluster3/ca-key.pem --from-file=certs/cluster3/root-cert.pem --from-file=certs/cluster3/cert-chain.pem
 
     # Install istio
-    istioctl install -f istio/istio3.yaml --context "${CLUSTER3}"
+    istioctl install -f istio/istio3.yaml -y --context "${CLUSTER3}"
 
 else
     echo -e "Invalid input"

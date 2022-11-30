@@ -32,3 +32,4 @@ kubectl --context=${CLUSTER} rollout status deployment/kiali -n istio-system
 
 # Start the Kiali Dashboard in the Browser
 istioctl --context=${CLUSTER} dashboard kiali &
+
