@@ -28,9 +28,16 @@ data:
         }
         federates_with "aws.com" {
           # NOTE:  update the url
-          bundle_endpoint_url = "https://172.20.156.66:30007"
+          bundle_endpoint_url = "https://aws-cluster-worker:30007"
           bundle_endpoint_profile "https_spiffe" {
             endpoint_spiffe_id = "spiffe://aws.com/spire/server"
+          }
+        }
+        federates_with "google.com" {
+          # NOTE: update the url
+          bundle_endpoint_url = "https://google-cluster-worker:30007"
+          bundle_endpoint_profile "https_spiffe" {
+            endpoint_spiffe_id = "spiffe://google.com/spire/server"
           }
         }
       }

@@ -26,6 +26,7 @@ spec:
         app: frontend
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
+        inject.istio.io/templates: "sidecar,spire"
     spec:
       serviceAccountName: default
       securityContext:

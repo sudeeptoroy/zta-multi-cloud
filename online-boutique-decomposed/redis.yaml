@@ -24,6 +24,8 @@ spec:
     metadata:
       labels:
         app: redis-cart
+      annotations:
+        inject.istio.io/templates: "sidecar,spire"
     spec:
       securityContext:
         fsGroup: 1000

@@ -31,35 +31,35 @@ kubectl --context ${CLUSTER} create ns istio-system
 if [ ${CLUSTER} == "cluster1" ]
 then
     # Add labels
-    kubectl --context="${CLUSTER1}" get namespace istio-system && kubectl --context="${CLUSTER1}" label namespace istio-system topology.istio.io/network=network1
+#    kubectl --context="${CLUSTER1}" get namespace istio-system && kubectl --context="${CLUSTER1}" label namespace istio-system topology.istio.io/network=network1
 
     # Add secrets
-    kubectl --context="${CLUSTER1}" create secret generic cacerts -n istio-system --from-file=certs/cluster1/ca-cert.pem --from-file=certs/cluster1/ca-key.pem --from-file=certs/cluster1/root-cert.pem --from-file=certs/cluster1/cert-chain.pem
+#    kubectl --context="${CLUSTER1}" create secret generic cacerts -n istio-system --from-file=certs/cluster1/ca-cert.pem --from-file=certs/cluster1/ca-key.pem --from-file=certs/cluster1/root-cert.pem --from-file=certs/cluster1/cert-chain.pem
 
     # Install istio
-    istioctl install -f istio/istio1.yaml -y --context "${CLUSTER1}"
+    istioctl install -f istio/istio-spire1.yaml -y --context "${CLUSTER1}"
 
 elif [ ${CLUSTER} == "cluster2" ]
 then
     # Add labels
-    kubectl --context="${CLUSTER2}" get namespace istio-system && kubectl --context="${CLUSTER2}" label namespace istio-system topology.istio.io/network=network2
+#    kubectl --context="${CLUSTER2}" get namespace istio-system && kubectl --context="${CLUSTER2}" label namespace istio-system topology.istio.io/network=network2
 
     # Add secrets
-    kubectl --context="${CLUSTER2}" create secret generic cacerts -n istio-system --from-file=certs/cluster2/ca-cert.pem --from-file=certs/cluster2/ca-key.pem --from-file=certs/cluster2/root-cert.pem --from-file=certs/cluster2/cert-chain.pem
+#    kubectl --context="${CLUSTER2}" create secret generic cacerts -n istio-system --from-file=certs/cluster2/ca-cert.pem --from-file=certs/cluster2/ca-key.pem --from-file=certs/cluster2/root-cert.pem --from-file=certs/cluster2/cert-chain.pem
 
     # Install istio
-    istioctl install -f istio/istio2.yaml -y --context "${CLUSTER2}"
+    istioctl install -f istio/istio-spire2.yaml -y --context "${CLUSTER2}"
 
 elif [ ${CLUSTER} == "cluster3" ]
 then
     # Add labels
-    kubectl --context="${CLUSTER3}" get namespace istio-system && kubectl --context="${CLUSTER3}" label namespace istio-system topology.istio.io/network=network3
+#    kubectl --context="${CLUSTER3}" get namespace istio-system && kubectl --context="${CLUSTER3}" label namespace istio-system topology.istio.io/network=network3
 
     # Add secrets
-    kubectl --context="${CLUSTER3}" create secret generic cacerts -n istio-system --from-file=certs/cluster3/ca-cert.pem --from-file=certs/cluster3/ca-key.pem --from-file=certs/cluster3/root-cert.pem --from-file=certs/cluster3/cert-chain.pem
+#    kubectl --context="${CLUSTER3}" create secret generic cacerts -n istio-system --from-file=certs/cluster3/ca-cert.pem --from-file=certs/cluster3/ca-key.pem --from-file=certs/cluster3/root-cert.pem --from-file=certs/cluster3/cert-chain.pem
 
     # Install istio
-    istioctl install -f istio/istio3.yaml -y --context "${CLUSTER3}"
+    istioctl install -f istio/istio-spire3.yaml -y --context "${CLUSTER3}"
 
 else
     echo -e "Invalid input"
@@ -67,6 +67,7 @@ fi
 
 # Add Istio gateways
 kubectl apply -f istio/istio-ew-gw.yaml --context "${CLUSTER}"
+kubectl apply -f ./istio/auth.yaml --context "${CLUSTER}"
 
 # echo -e "##############################################################################################################"
 # echo -e "Go to aws console, select the east west elb .. listeners ..then select the target group for 15443...         #"

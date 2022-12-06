@@ -9,7 +9,7 @@ data:
       bind_address = "0.0.0.0"
       bind_port = "8081"
       socket_path = "/run/spire/sockets/server.sock"
-      trust_domain = "onprem.com"
+      trust_domain = "azure.com"
       data_dir = "/run/spire/data"
       log_level = "DEBUG"
       ca_key_type = "rsa-2048"
@@ -28,7 +28,14 @@ data:
         }
         federates_with "aws.com" {
           # NOTE: update the url
-          bundle_endpoint_url = "https://10.0.15.148:30007"
+          bundle_endpoint_url = "https://aws-cluster-worker:30007"
+          bundle_endpoint_profile "https_spiffe" {
+            endpoint_spiffe_id = "spiffe://aws.com/spire/server"
+          }
+        }
+        federates_with "google.com" {
+          # NOTE: update the url
+          bundle_endpoint_url = "https://google-cluster-worker:30007"
           bundle_endpoint_profile "https_spiffe" {
             endpoint_spiffe_id = "spiffe://google.com/spire/server"
           }
@@ -48,7 +55,7 @@ data:
         plugin_data {
           clusters = {
             # NOTE: Change this to your cluster name
-            "cluster1" = {
+            "cluster3" = {
               use_token_review_api_validation = true
               service_account_allow_list = ["spire:spire-agent"]
             }

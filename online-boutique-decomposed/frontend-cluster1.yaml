@@ -26,6 +26,8 @@ spec:
         app: frontend
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
+        inject.istio.io/templates: "sidecar,spire"
+        spiffe.io/federatesWith: "google.com,azure.com"
     spec:
       serviceAccountName: default
       securityContext:

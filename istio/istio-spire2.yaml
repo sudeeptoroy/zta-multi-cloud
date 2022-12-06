@@ -8,15 +8,37 @@ spec:
     - aws.com
     - azure.com
   values:
-    gateways:
-      istio-ingressgateway:
-        injectionTemplate: gateway
+    #    gateways:
+    #      istio-ingressgateway:
+    #        injectionTemplate: gateway
     global:
       meshID: devup
       multiCluster:
         clusterName: cluster2
       network: network2
+    # This is used to customize the sidecar template
+    sidecarInjectorWebhook:
+      templates:
+        spire: |
+          spec:
+            containers:
+            - name: istio-proxy
+              volumeMounts:
+              - name: workload-socket
+                mountPath: /run/secrets/workload-spiffe-uds
+                readOnly: true
+            volumes:
+              - name: workload-socket
+                csi:
+                  driver: "csi.spiffe.io"
   components:
+    pilot:
+      k8s:
+        env:
+          - name: ENABLE_CA_SERVER
+            value: "true"
+          - name: PILOT_ENABLE_XDS_IDENTITY_CHECK
+            value: "true"
     ingressGateways:
       - name: istio-eastwestgateway
         label:
@@ -25,6 +47,23 @@ spec:
           topology.istio.io/network: network2
         enabled: true
         k8s:
+          #          podAnnotations:
+          #            spiffe.io/federatesWith: "aws.com,azure.com"
+          overlays:
+            - apiVersion: apps/v1
+              kind: Deployment
+              name: istio-eastwestgateway
+              patches:
+                - path: spec.template.spec.volumes.[name:workload-socket]
+                  value:
+                    name: workload-socket
+                    csi:
+                      driver: "csi.spiffe.io"
+                - path: spec.template.spec.containers.[name:istio-proxy].volumeMounts.[name:workload-socket]
+                  value:
+                    name: workload-socket
+                    mountPath: "/run/secrets/workload-spiffe-uds"
+                    readOnly: true
           env:
             - name: ISTIO_META_ROUTER_MODE
               value: "sni-dnat"

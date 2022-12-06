@@ -5,7 +5,7 @@ metadata:
   namespace: spire
 data:
   k8s-workload-registrar.conf: |
-    trust_domain = "onprem.com"
+    trust_domain = "azure.com"
     server_socket_path = "/run/spire/sockets/server.sock"
     cluster = "cluster3"
     mode = "crd"

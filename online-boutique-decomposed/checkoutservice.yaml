@@ -24,6 +24,9 @@ spec:
     metadata:
       labels:
         app: checkoutservice
+      annotations:
+        inject.istio.io/templates: "sidecar,spire"
+        spiffe.io/federatesWith: "google.com,azure.com"
     spec:
       serviceAccountName: default
       securityContext:

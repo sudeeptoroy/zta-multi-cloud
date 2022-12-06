@@ -1,5 +1,11 @@
 . ./0-setup.sh
 ./1.1-deploy-clusters-kind.sh
+./2.0-install-spire.sh cluster1
+./2.0-install-spire.sh cluster2
+./2.0-install-spire.sh cluster3
+./2.1-install-spire-bundles.sh cluster1
+./2.1-install-spire-bundles.sh cluster2
+./2.1-install-spire-bundles.sh cluster3
 ./2-install-istio.sh cluster1
 ./2-install-istio.sh cluster2
 ./2-install-istio.sh cluster3
@@ -19,5 +25,4 @@
 ./9-deploy-cluster3.sh
 
 
-
-
+./kind/destroy.sh

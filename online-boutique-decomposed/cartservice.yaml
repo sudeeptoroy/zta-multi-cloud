@@ -24,6 +24,8 @@ spec:
     metadata:
       labels:
         app: cartservice
+      annotations:
+        inject.istio.io/templates: "sidecar,spire"
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5

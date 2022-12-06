@@ -24,6 +24,9 @@ spec:
     metadata:
       labels:
         app: adservice
+      annotations:
+        inject.istio.io/templates: "sidecar,spire"
+        spiffe.io/federatesWith: "aws.com"
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5

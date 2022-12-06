@@ -12,7 +12,12 @@ data:
       server_port = "8081"
       socket_path = "/run/secrets/workload-spiffe-uds/socket"
       trust_bundle_path = "/run/spire/bundle/root-cert.pem"
-      trust_domain = "onprem.com"
+      trust_domain = "azure.com"
+      sds = {
+        default_svid_name = "default"
+        default_bundle_name = "null"
+        default_all_bundles_name = "ROOTCA"
+      }
     }
 
     plugins {
